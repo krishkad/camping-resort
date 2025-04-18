@@ -152,11 +152,11 @@ const Footer = () => {
           </div>
         </div>
         
-        {/* <div className="text-center mt-8 text-sm text-stone-400">
+        <div className="text-center mt-8 text-sm text-stone-400">
           <p className="flex items-center justify-center">
-            Crafted with <Heart size={14} className="mx-1 text-[#dea253]" /> by WildHaven Team
+            Crafted By Krrish
           </p>
-        </div> */}
+        </div>
       </div>
       
       <button
