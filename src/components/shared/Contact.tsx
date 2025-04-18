@@ -16,7 +16,7 @@ const Contact = () => {
     <section id="contact" className="container-section">
       <h2 className="section-title text-center text-[#284f32]">Get In Touch</h2>
       <p className="section-subtitle text-center">
-        Have questions about our camps or want to make a booking? Reach out to us and we'll get back to you as soon as possible.
+        Have questions about our camps or want to make a booking? Reach out to us and we&apos;ll get back to you as soon as possible.
       </p>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-12">

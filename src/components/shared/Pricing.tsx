@@ -1,12 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import { Check, HelpCircle } from "lucide-react";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { Check } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 
 const pricingPlans = [
@@ -61,7 +56,7 @@ const pricingPlans = [
 ];
 
 const Pricing = () => {
-  const [annually, setAnnually] = useState(false);
+  // const [annually, setAnnually] = useState(false);
 
   return (
     <section className="bg-[#f1f9f3]">

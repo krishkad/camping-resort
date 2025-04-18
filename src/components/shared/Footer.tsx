@@ -1,7 +1,6 @@
 "use client"
 import React from "react";
-import { MapPin, Phone, Mail, ArrowUp, Send, Heart } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { MapPin, Phone, Mail, ArrowUp, Send } from "lucide-react";
 
 const Footer = () => {
   const scrollToTop = () => {
@@ -33,7 +32,7 @@ const Footer = () => {
               </h3>
             </div>
             <p className="mb-6 text-stone-200 leading-relaxed">
-              Experience premium camping in stone's most beautiful locations. Disconnect from everyday life and reconnect with what truly matters.
+              Experience premium camping in stone&apos;s most beautiful locations. Disconnect from everyday life and reconnect with what truly matters.
             </p>
             <div className="flex space-x-3">
               <a href="#" className="bg-white/10 hover:bg-white/20 p-2.5 rounded-full transition-colors">

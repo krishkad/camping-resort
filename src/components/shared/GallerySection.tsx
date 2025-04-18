@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { ChevronLeft, ChevronRight, Expand, ImageIcon } from "lucide-react";
+import { ChevronLeft, ChevronRight, Expand } from "lucide-react";
 import {
   Carousel,
   CarouselContent,
@@ -9,7 +9,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
 // Gallery data

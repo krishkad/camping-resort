@@ -31,7 +31,7 @@ const DailySchedule = () => {
   };
 
   const getIcon = (iconName: string) => {
-    // @ts-ignore - This is a dynamic component selection
+    //  @ts-expect-error - This is a dynamic component selection
     const IconComponent = iconMap[iconName] || Sun;
     return <IconComponent className="text-white" />;
   };

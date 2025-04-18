@@ -21,7 +21,7 @@ const Facilities = () => {
   };
 
   const getIcon = (iconName: string) => {
-    // @ts-ignore - This is a dynamic component selection
+    // @ts-expect-error - This is a dynamic component selection
     const IconComponent = iconMap[iconName] || ShowerHead;
     return <IconComponent size={36} className="text-stone-500" />;
   };
