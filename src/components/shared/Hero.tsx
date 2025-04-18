@@ -12,7 +12,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative h-[dvh] overflow-hidden">
+    <section className="relative h-dvh overflow-hidden">
       {/* Hero Background Image with Video Overlay */}
       <div className="absolute inset-0 z-0">
         <img
