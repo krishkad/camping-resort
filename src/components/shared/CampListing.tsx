@@ -123,7 +123,7 @@ const CampListing = () => {
         </motion.div>
         
         <div className="text-center mt-12">
-          <Button className="btn-outline">
+          <Button className="">
             View All Destinations
           </Button>
         </div>
