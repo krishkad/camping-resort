@@ -224,7 +224,7 @@
   }
 
   .btn-outline {
-    @apply border-2 border-stone-600 text-stone-600 hover:bg-stone-50 font-medium py-3 px-6 rounded-lg transition-all duration-300 hover:shadow-md;
+    @apply border-2 border-[#377c48] text-[#377c48] hover:bg-stone-50 font-medium py-3 px-6 rounded-lg transition-all duration-300 hover:shadow-md;
   }
 
   .glass-card {
@@ -236,7 +236,7 @@
   }
 
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-stone-600 to-sky-600;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#377c48] to-sky-600;
   }
 
   .badge {
@@ -278,7 +278,7 @@
   }
 
   .section-subtitle {
-    @apply text-xl text-stone-600/90 mb-10 max-w-2xl mx-auto leading-relaxed;
+    @apply text-xl text-[#377c48]/90 mb-10 max-w-2xl mx-auto leading-relaxed;
   }
 
   .container-section {
@@ -294,7 +294,7 @@
   }
 
   .btn-outline {
-    @apply border-2 border-stone-600 text-stone-600 hover:bg-stone-50 font-medium py-3 px-6 rounded-lg transition-all duration-300 hover:shadow-md;
+    @apply border-2 border-[#377c48] text-[#377c48] hover:bg-stone-50 font-medium py-3 px-6 rounded-lg transition-all duration-300 hover:shadow-md;
   }
 
   .glass-card {
@@ -306,7 +306,7 @@
   }
 
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-stone-600 to-sky-600;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#377c48] to-sky-600;
   }
 
   .badge {
