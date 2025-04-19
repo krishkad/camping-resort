@@ -35,7 +35,7 @@ const Header = () => {
           : isMobileMenuOpen
           ? "bg-white py-3"
           : isScrolled
-          ? "bg-white backdrop-blur-md shadow-md py-3"
+          ? "bg-white py-3"
           : "bg-transparent py-5"
       }`}
     >
@@ -115,7 +115,7 @@ const Header = () => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.3 }}
-          className="md:hidden bg-white/95 backdrop-blur-sm w-full py-4 px-6 shadow-lg"
+          className="md:hidden bg-white/95 backdrop-blur-sm w-full pt-4 pb-1 px-6"
         >
           <nav className="flex flex-col space-y-4">
             {[
