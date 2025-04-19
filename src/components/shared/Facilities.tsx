@@ -23,7 +23,7 @@ const Facilities = () => {
   const getIcon = (iconName: string) => {
     // @ts-expect-error - This is a dynamic component selection
     const IconComponent = iconMap[iconName] || ShowerHead;
-    return <IconComponent size={36} className="text-stone-500" />;
+    return <IconComponent size={36} className="text-[#48995c]" />;
   };
 
   return (
@@ -57,29 +57,29 @@ const Facilities = () => {
         <div className="mt-16 bg-white rounded-lg shadow-md overflow-hidden">
           <div className="grid grid-cols-1 md:grid-cols-2">
             <div className="p-8 flex flex-col justify-center">
-              <h3 className="text-2xl font-bold text-stone-800 mb-4">
+              <h3 className="text-2xl font-bold text-[#284f32] mb-4">
                 Sustainable Facilities
               </h3>
-              <p className="text-stone-600 mb-6">
+              <p className="text-[#377c48] mb-6">
                 All our facilities are designed with sustainability in mind. We
                 use solar power, rainwater harvesting, and eco-friendly products
                 throughout our campsite.
               </p>
-              <ul className="space-y-2 text-stone-600">
+              <ul className="space-y-2 text-[#377c48]">
                 <li className="flex items-center">
-                  <span className="w-2 h-2 bg-stone-500 rounded-full mr-2"></span>
+                  <span className="w-2 h-2 bg-[#48995c] rounded-full mr-2"></span>
                   <span>Solar-powered electricity and heating</span>
                 </li>
                 <li className="flex items-center">
-                  <span className="w-2 h-2 bg-stone-500 rounded-full mr-2"></span>
+                  <span className="w-2 h-2 bg-[#48995c] rounded-full mr-2"></span>
                   <span>Rainwater collection and filtration system</span>
                 </li>
                 <li className="flex items-center">
-                  <span className="w-2 h-2 bg-stone-500 rounded-full mr-2"></span>
+                  <span className="w-2 h-2 bg-[#48995c] rounded-full mr-2"></span>
                   <span>Biodegradable toiletries and cleaning products</span>
                 </li>
                 <li className="flex items-center">
-                  <span className="w-2 h-2 bg-stone-500 rounded-full mr-2"></span>
+                  <span className="w-2 h-2 bg-[#48995c] rounded-full mr-2"></span>
                   <span>Waste composting and recycling program</span>
                 </li>
               </ul>
