@@ -30,8 +30,8 @@ const Header = () => {
   return (
     <header
       className={`fixed w-full z-50 transition-all duration-500 ${
-        isScrolled || isMobileMenuOpen
-          ? "bg-white backdrop-blur-md shadow-md pt-3"
+        isScrolled 
+          ? "bg-white backdrop-blur-md shadow-md py-3" : isMobileMenuOpen ? "bg-white backdrop-blur-md shadow-md pt-3"
           : "bg-transparent py-5"
       }`}
     >
