@@ -1,4 +1,3 @@
-import Header from "@/components/shared/Header";
 import Hero from "@/components/shared/Hero";
 import CampListing from "@/components/shared/CampListing";
 import Pricing from "@/components/shared/Pricing";
@@ -12,7 +11,6 @@ import GallerySection from "@/components/shared/GallerySection";
 export default function Home() {
   return (
     <div className="min-h-screen">
-      <Header />
       <Hero />
       <CampListing />
       <DailySchedule />
