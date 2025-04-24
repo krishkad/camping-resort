@@ -1,14 +1,10 @@
 import React, { ReactNode } from "react";
 import AppSidebar from "@/components/shared/app-sidebar";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { AlignJustifyIcon } from "lucide-react";
-import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
 // import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 // import { usePathname } from "next/navigation";
-import { ADMINROUTE } from "@/constants/index.c";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Toaster } from "@/components/ui/sonner";
 import { Separator } from "@/components/ui/separator";

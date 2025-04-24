@@ -18,7 +18,7 @@ import { FaParking } from "react-icons/fa"; // Icon for "Parking"
 import { FaTwitter, FaFacebook, FaLinkedin, FaInstagram } from "react-icons/fa";
 import { MdDashboard } from "react-icons/md";
 import { GiCampingTent } from "react-icons/gi";
-import { FaCalendarAlt, FaUsers, FaStar } from "react-icons/fa";
+import { FaCalendarAlt, FaUsers } from "react-icons/fa";
 import { FiSettings } from "react-icons/fi";
 // import mongoose from "mongoose";
 import { v4 as uuidv4 } from "uuid";
@@ -77,73 +77,73 @@ export type Role =
   | "EVENT_COORDINATOR";
 
 // Define access permissions for each role
-interface RoleAccess {
-  manageUsers: boolean;
-  manageReservations: boolean;
-  manageInventory: boolean;
-  manageEvents: boolean;
-  manageRooms: boolean;
-  viewReports: boolean;
-}
+// interface RoleAccess {
+//   manageUsers: boolean;
+//   manageReservations: boolean;
+//   manageInventory: boolean;
+//   manageEvents: boolean;
+//   manageRooms: boolean;
+//   viewReports: boolean;
+// }
 
-const roleAccess: Record<Role, RoleAccess> = {
-  ADMIN: {
-    manageUsers: true,
-    manageReservations: true,
-    manageInventory: true,
-    manageEvents: true,
-    manageRooms: true,
-    viewReports: true,
-  },
-  MANAGER: {
-    manageUsers: false,
-    manageReservations: true,
-    manageInventory: true,
-    manageEvents: true,
-    manageRooms: true,
-    viewReports: true,
-  },
-  RECEPTIONIST: {
-    manageUsers: false,
-    manageReservations: true,
-    manageInventory: false,
-    manageEvents: false,
-    manageRooms: true,
-    viewReports: false,
-  },
-  CHEF: {
-    manageUsers: false,
-    manageReservations: false,
-    manageInventory: true,
-    manageEvents: false,
-    manageRooms: false,
-    viewReports: false,
-  },
-  HOUSEKEEPING: {
-    manageUsers: false,
-    manageReservations: false,
-    manageInventory: false,
-    manageEvents: false,
-    manageRooms: true,
-    viewReports: false,
-  },
-  MAINTENANCE: {
-    manageUsers: false,
-    manageReservations: false,
-    manageInventory: false,
-    manageEvents: false,
-    manageRooms: true,
-    viewReports: false,
-  },
-  EVENT_COORDINATOR: {
-    manageUsers: false,
-    manageReservations: false,
-    manageInventory: false,
-    manageEvents: true,
-    manageRooms: false,
-    viewReports: false,
-  },
-};
+// const roleAccess: Record<Role, RoleAccess> = {
+//   ADMIN: {
+//     manageUsers: true,
+//     manageReservations: true,
+//     manageInventory: true,
+//     manageEvents: true,
+//     manageRooms: true,
+//     viewReports: true,
+//   },
+//   MANAGER: {
+//     manageUsers: false,
+//     manageReservations: true,
+//     manageInventory: true,
+//     manageEvents: true,
+//     manageRooms: true,
+//     viewReports: true,
+//   },
+//   RECEPTIONIST: {
+//     manageUsers: false,
+//     manageReservations: true,
+//     manageInventory: false,
+//     manageEvents: false,
+//     manageRooms: true,
+//     viewReports: false,
+//   },
+//   CHEF: {
+//     manageUsers: false,
+//     manageReservations: false,
+//     manageInventory: true,
+//     manageEvents: false,
+//     manageRooms: false,
+//     viewReports: false,
+//   },
+//   HOUSEKEEPING: {
+//     manageUsers: false,
+//     manageReservations: false,
+//     manageInventory: false,
+//     manageEvents: false,
+//     manageRooms: true,
+//     viewReports: false,
+//   },
+//   MAINTENANCE: {
+//     manageUsers: false,
+//     manageReservations: false,
+//     manageInventory: false,
+//     manageEvents: false,
+//     manageRooms: true,
+//     viewReports: false,
+//   },
+//   EVENT_COORDINATOR: {
+//     manageUsers: false,
+//     manageReservations: false,
+//     manageInventory: false,
+//     manageEvents: true,
+//     manageRooms: false,
+//     viewReports: false,
+//   },
+// };
 
 // Users array with roles specific to a small camping hotel/resort
 export const users: User[] = [
