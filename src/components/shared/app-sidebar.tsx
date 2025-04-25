@@ -48,24 +48,22 @@ export default function AppSidebar() {
                   <SidebarMenuButton
                     asChild
                     className={cn(
-                      "h-full border-none focus:border-none focus-visible:ring-0",
-                      pathname === item.href && "bg-[#f1f9f3]"
+                      "h-full border-none focus:border-none focus-visible:ring-0 hover:text-white hover:bg-[#5B913B] active:bg-[#5B913B] active:text-white px-4 ",
+                      pathname === item.href && "bg-[#5B913B]"
                     )}
                   >
                     {!isMobile ? (
                       <Link href={item.href} className="size-full">
                         <item.icon
                           className={cn(
-                            "w-5 h-6 ",
-                            pathname === item.href && "text-[#284f32]"
+                            "w-5 h-6",
+                            pathname === item.href && "text-[#ffffff]"
                           )}
                         />
                         <span
                           className={cn(
                             "text-base font-medium",
-                            pathname === item.href
-                              ? "text-[#284f32]"
-                              : "text-gray-600"
+                            pathname === item.href && "text-[#ffffff]"
                           )}
                         >
                           {item.label}
@@ -77,16 +75,19 @@ export default function AppSidebar() {
                           href={item.href}
                           className={cn(
                             "size-full",
-                            pathname === item.href && "bg-[#f1f9f3]"
+                            pathname === item.href && "bg-[#5B913B]"
                           )}
                         >
-                          <item.icon className={cn("w-5 h-6 ")} />
+                          <item.icon
+                            className={cn(
+                              "w-5 h-6 ",
+                              pathname === item.href && "text-[#ffffff]"
+                            )}
+                          />
                           <span
                             className={cn(
                               "text-base  font-medium",
-                              pathname === item.href
-                                ? "text-[#284f32]"
-                                : "text-gray-600"
+                              pathname === item.href && "text-[#ffffff]"
                             )}
                           >
                             {item.label}
