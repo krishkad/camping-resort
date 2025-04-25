@@ -47,6 +47,7 @@ import {
 } from "@/lib/utils";
 import { FiEdit } from "react-icons/fi";
 import { IoMdTrash } from "react-icons/io";
+import { LuSquareDot } from "react-icons/lu";
 
 export type Payment = {
   id: string;
@@ -76,7 +77,9 @@ export const columns: ColumnDef<Booking>[] = [
         </Button>
       );
     },
-    cell: ({ row }) => <div className="lowercase font-medium">{row.getValue("email")}</div>,
+    cell: ({ row }) => (
+      <div className="lowercase font-medium">{row.getValue("email")}</div>
+    ),
   },
   {
     accessorKey: "phoneNumber",
@@ -94,7 +97,7 @@ export const columns: ColumnDef<Booking>[] = [
       const checkInDate = row.getValue("checkInDate");
 
       return (
-        <div className="text-right font-medium">{checkInDate as string}</div>
+        <div className="text-right font-medium ml-8">{checkInDate as string}</div>
       );
     },
   },
@@ -105,7 +108,7 @@ export const columns: ColumnDef<Booking>[] = [
       const checkOutDate = row.getValue("checkOutDate");
 
       return (
-        <div className="text-right font-medium">{checkOutDate as string}</div>
+        <div className="text-right font-medium ml-8">{checkOutDate as string}</div>
       );
     },
   },
@@ -134,7 +137,7 @@ export const columns: ColumnDef<Booking>[] = [
       const roomType: string = row.getValue("roomType");
 
       return (
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-3 ml-4">
           <div
             className={cn(
               "w-1 h-6 rounded-full",
@@ -159,7 +162,14 @@ export const columns: ColumnDef<Booking>[] = [
       const foodPreference = row.getValue("foodPreference");
 
       return (
-        <div className="text-right font-medium">{foodPreference as string}</div>
+        <div className="flex items-center gap-1 text-right font-medium">
+          <LuSquareDot
+            className={
+              foodPreference === "Veg" ? "text-green-600" : "text-red-500"
+            }
+          />
+          {foodPreference as string}
+        </div>
       );
     },
   },
