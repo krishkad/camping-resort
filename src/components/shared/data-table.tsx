@@ -94,7 +94,7 @@ export const columns: ColumnDef<Booking>[] = [
       const checkInDate = row.getValue("checkInDate");
 
       return (
-        <div className="text-right font-medium">{checkInDate as String}</div>
+        <div className="text-right font-medium">{checkInDate as string}</div>
       );
     },
   },
@@ -105,7 +105,7 @@ export const columns: ColumnDef<Booking>[] = [
       const checkOutDate = row.getValue("checkOutDate");
 
       return (
-        <div className="text-right font-medium">{checkOutDate as String}</div>
+        <div className="text-right font-medium">{checkOutDate as string}</div>
       );
     },
   },
@@ -143,7 +143,7 @@ export const columns: ColumnDef<Booking>[] = [
       const foodPreference = row.getValue("foodPreference");
 
       return (
-        <div className="text-right font-medium">{foodPreference as String}</div>
+        <div className="text-right font-medium">{foodPreference as string}</div>
       );
     },
   },
@@ -172,7 +172,7 @@ export const columns: ColumnDef<Booking>[] = [
               getCheckInStatus(checkInStatus as CheckInStatus, "bg")
             )}
           >
-            {checkInStatus as String}
+            {checkInStatus as string}
           </Badge>
         </div>
       );
@@ -192,7 +192,7 @@ export const columns: ColumnDef<Booking>[] = [
               getBookingStatus(bookingStatus as BookingStatus, "bg")
             )}
           >
-            {bookingStatus as String}
+            {bookingStatus as string}
           </Badge>
         </div>
       );
@@ -212,7 +212,7 @@ export const columns: ColumnDef<Booking>[] = [
               getPaymentStatus(paymentStatus as PaymentStatus, "bg")
             )}
           >
-            {paymentStatus as String}
+            {paymentStatus as string}
           </Badge>
         </div>
       );
@@ -225,7 +225,7 @@ export const columns: ColumnDef<Booking>[] = [
       const specialRequest = row.getValue("specialRequests");
 
       return (
-        <div className="text-right font-medium">{specialRequest as String}</div>
+        <div className="text-right font-medium">{specialRequest as string}</div>
       );
     },
   },
@@ -235,13 +235,13 @@ export const columns: ColumnDef<Booking>[] = [
     cell: ({ row }) => {
       const amount = row.getValue("amount");
 
-      return <div className="text-right font-medium">{amount as String}</div>;
+      return <div className="text-right font-medium">{amount as string}</div>;
     },
   },
   {
     id: "editActions",
     enableHiding: false,
-    cell: ({ row }) => {
+    cell: ({  }) => {
       // const payment = row.original;
 
       return (
@@ -252,7 +252,7 @@ export const columns: ColumnDef<Booking>[] = [
   {
     id: "deleteActions",
     enableHiding: false,
-    cell: ({ row }) => {
+    cell: ({  }) => {
       // const payment = row.original;
 
       return (
