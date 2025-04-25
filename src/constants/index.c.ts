@@ -33,7 +33,7 @@ interface Booking {
 }
 
 
-const bookings: Booking[] = [
+export const bookings: Booking[] = [
   {
     id: "BKG123456",
     clientName: "Rahul Sharma",
