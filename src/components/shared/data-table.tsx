@@ -60,7 +60,7 @@ export const columns: ColumnDef<Booking>[] = [
     accessorKey: "clientName",
     header: "Guest Name",
     cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("clientName")}</div>
+      <div className="capitalize font-medium">{row.getValue("clientName")}</div>
     ),
   },
   {
@@ -76,7 +76,7 @@ export const columns: ColumnDef<Booking>[] = [
         </Button>
       );
     },
-    cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
+    cell: ({ row }) => <div className="lowercase font-medium">{row.getValue("email")}</div>,
   },
   {
     accessorKey: "phoneNumber",
@@ -133,7 +133,23 @@ export const columns: ColumnDef<Booking>[] = [
     cell: ({ row }) => {
       const roomType: string = row.getValue("roomType");
 
-      return <div className="text-right font-medium">{roomType}</div>;
+      return (
+        <div className="flex items-center space-x-3">
+          <div
+            className={cn(
+              "w-1 h-6 rounded-full",
+              roomType === "Standard"
+                ? "bg-yellow-500"
+                : roomType === "Deluxe"
+                ? "bg-blue-600"
+                : roomType === "Suite"
+                ? "bg-purple-600"
+                : "bg-gray-500"
+            )}
+          ></div>
+          <span className="text-sm font-medium text-gray-700">{roomType}</span>
+        </div>
+      );
     },
   },
   {
@@ -241,23 +257,19 @@ export const columns: ColumnDef<Booking>[] = [
   {
     id: "editActions",
     enableHiding: false,
-    cell: ({  }) => {
+    cell: ({}) => {
       // const payment = row.original;
 
-      return (
-        <FiEdit className="w-4 h-4 ml-3 text-yellow-500" />
-      );
+      return <FiEdit className="w-4 h-4 ml-3 text-yellow-500" />;
     },
   },
   {
     id: "deleteActions",
     enableHiding: false,
-    cell: ({  }) => {
+    cell: ({}) => {
       // const payment = row.original;
 
-      return (
-        <IoMdTrash className="w-4 h-4 mx-3 text-red-500" />
-      );
+      return <IoMdTrash className="w-4 h-4 mx-3 text-red-500" />;
     },
   },
 ];
