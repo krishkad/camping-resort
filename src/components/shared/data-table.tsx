@@ -13,17 +13,13 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react";
+import { ArrowUpDown, ChevronDown } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
@@ -35,39 +31,22 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
-const data: Payment[] = [
-  {
-    id: "m5gr84i9",
-    amount: 316,
-    status: "success",
-    email: "ken99@example.com",
-  },
-  {
-    id: "3u1reuv4",
-    amount: 242,
-    status: "success",
-    email: "Abe45@example.com",
-  },
-  {
-    id: "derv1ws0",
-    amount: 837,
-    status: "processing",
-    email: "Monserrat44@example.com",
-  },
-  {
-    id: "5kma53ae",
-    amount: 874,
-    status: "success",
-    email: "Silas22@example.com",
-  },
-  {
-    id: "bhqecj4p",
-    amount: 721,
-    status: "failed",
-    email: "carmella@example.com",
-  },
-];
+import {
+  Booking,
+  BookingStatus,
+  CheckInStatus,
+  bookings as data,
+  PaymentStatus,
+} from "@/constants/index.c";
+import { Badge } from "../ui/badge";
+import {
+  cn,
+  getBookingStatus,
+  getCheckInStatus,
+  getPaymentStatus,
+} from "@/lib/utils";
+import { FiEdit } from "react-icons/fi";
+import { IoMdTrash } from "react-icons/io";
 
 export type Payment = {
   id: string;
@@ -76,34 +55,12 @@ export type Payment = {
   email: string;
 };
 
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<Booking>[] = [
   {
-    id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
+    accessorKey: "clientName",
+    header: "Guest Name",
     cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-  {
-    accessorKey: "status",
-    header: "Status",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("status")}</div>
+      <div className="capitalize">{row.getValue("clientName")}</div>
     ),
   },
   {
@@ -122,46 +79,184 @@ export const columns: ColumnDef<Payment>[] = [
     cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
   },
   {
-    accessorKey: "amount",
-    header: () => <div className="text-right">Amount</div>,
+    accessorKey: "phoneNumber",
+    header: () => <div className="text-right">Phone No.</div>,
     cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"));
+      const phoneno: string = row.getValue("phoneNumber");
 
-      // Format the amount as a dollar amount
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount);
-
-      return <div className="text-right font-medium">{formatted}</div>;
+      return <div className="text-right font-medium">{phoneno}</div>;
     },
   },
   {
-    id: "actions",
-    enableHiding: false,
+    accessorKey: "checkInDate",
+    header: () => <div className="text-right">Check In</div>,
     cell: ({ row }) => {
-      const payment = row.original;
+      const checkInDate = row.getValue("checkInDate");
 
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
-            >
-              Copy payment ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className="text-right font-medium">{checkInDate as String}</div>
+      );
+    },
+  },
+  {
+    accessorKey: "checkOutDate",
+    header: () => <div className="text-right">Check In</div>,
+    cell: ({ row }) => {
+      const checkOutDate = row.getValue("checkOutDate");
+
+      return (
+        <div className="text-right font-medium">{checkOutDate as String}</div>
+      );
+    },
+  },
+  {
+    accessorKey: "numberOfAdults",
+    header: () => <div className="text-right">No. of Adults</div>,
+    cell: ({ row }) => {
+      const numberOfAdults = parseFloat(row.getValue("numberOfAdults"));
+
+      return <div className="text-right font-medium">{numberOfAdults}</div>;
+    },
+  },
+  {
+    accessorKey: "numberOfKids",
+    header: () => <div className="text-right">No. of Guest</div>,
+    cell: ({ row }) => {
+      const numberOfKids = parseFloat(row.getValue("numberOfKids"));
+
+      return <div className="text-right font-medium">{numberOfKids}</div>;
+    },
+  },
+  {
+    accessorKey: "roomType",
+    header: () => <div className="text-right">Room Type</div>,
+    cell: ({ row }) => {
+      const roomType: string = row.getValue("roomType");
+
+      return <div className="text-right font-medium">{roomType}</div>;
+    },
+  },
+  {
+    accessorKey: "foodPreference",
+    header: () => <div className="text-right">Food</div>,
+    cell: ({ row }) => {
+      const foodPreference = row.getValue("foodPreference");
+
+      return (
+        <div className="text-right font-medium">{foodPreference as String}</div>
+      );
+    },
+  },
+  {
+    accessorKey: "roomNumber",
+    header: () => <div className="text-right">Room Number</div>,
+    cell: ({ row }) => {
+      const roomNumber = row.getValue("roomNumber");
+
+      return (
+        <div className="text-right font-medium">{roomNumber as string}</div>
+      );
+    },
+  },
+  {
+    accessorKey: "checkInStatus",
+    header: () => <div className="text-right">Check-In Status</div>,
+    cell: ({ row }) => {
+      const checkInStatus = row.getValue("checkInStatus");
+
+      return (
+        <div className="text-right font-medium">
+          <Badge
+            className={cn(
+              getCheckInStatus(checkInStatus as CheckInStatus, "text"),
+              getCheckInStatus(checkInStatus as CheckInStatus, "bg")
+            )}
+          >
+            {checkInStatus as String}
+          </Badge>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "bookingStatus",
+    header: () => <div className="text-right">Booking Status</div>,
+    cell: ({ row }) => {
+      const bookingStatus = row.getValue("bookingStatus");
+
+      return (
+        <div className="text-right font-medium">
+          <Badge
+            className={cn(
+              getBookingStatus(bookingStatus as BookingStatus, "text"),
+              getBookingStatus(bookingStatus as BookingStatus, "bg")
+            )}
+          >
+            {bookingStatus as String}
+          </Badge>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "paymentStatus",
+    header: () => <div className="text-right">Payment Status</div>,
+    cell: ({ row }) => {
+      const paymentStatus = row.getValue("paymentStatus");
+
+      return (
+        <div className="text-right font-medium">
+          <Badge
+            className={cn(
+              getPaymentStatus(paymentStatus as PaymentStatus, "text"),
+              getPaymentStatus(paymentStatus as PaymentStatus, "bg")
+            )}
+          >
+            {paymentStatus as String}
+          </Badge>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "specialRequests",
+    header: () => <div className="text-right">Special Requests</div>,
+    cell: ({ row }) => {
+      const specialRequest = row.getValue("specialRequests");
+
+      return (
+        <div className="text-right font-medium">{specialRequest as String}</div>
+      );
+    },
+  },
+  {
+    accessorKey: "amount",
+    header: () => <div className="text-right">Total Amount</div>,
+    cell: ({ row }) => {
+      const amount = row.getValue("amount");
+
+      return <div className="text-right font-medium">{amount as String}</div>;
+    },
+  },
+  {
+    id: "editActions",
+    enableHiding: false,
+    cell: ({ row }) => {
+      // const payment = row.original;
+
+      return (
+        <FiEdit className="w-4 h-4 ml-3 text-yellow-500" />
+      );
+    },
+  },
+  {
+    id: "deleteActions",
+    enableHiding: false,
+    cell: ({ row }) => {
+      // const payment = row.original;
+
+      return (
+        <IoMdTrash className="w-4 h-4 mx-3 text-red-500" />
       );
     },
   },
