@@ -372,3 +372,63 @@ export const ADMINROUTE = [
 ] as const;
 
 
+
+
+
+export type Employee = {
+  employeeId: string;
+  name: string;
+  email: string;
+  phoneNo: string;
+  role: 'Receptionist' | 'Admin' | 'Manager' | 'Cleaner' | 'Security' | 'Maintenance';
+  address: string;
+  salary: number; // in USD or local currency
+};
+
+export const employees: Employee[] = [
+  {
+    employeeId: 'EMP001',
+    name: 'Priya Sharma',
+    email: 'priya.sharma@campresort.in',
+    phoneNo: '+91-9876543210',
+    role: 'Receptionist',
+    address: '12 MG Road, Bengaluru, Karnataka',
+    salary: 25000,
+  },
+  {
+    employeeId: 'EMP002',
+    name: 'Rahul Verma',
+    email: 'rahul.verma@campresort.in',
+    phoneNo: '+91-9988776655',
+    role: 'Manager',
+    address: '45 Connaught Place, New Delhi',
+    salary: 60000,
+  },
+  {
+    employeeId: 'EMP003',
+    name: 'Sneha Iyer',
+    email: 'sneha.iyer@campresort.in',
+    phoneNo: '+91-9123456789',
+    role: 'Admin',
+    address: '23 Marina Beach Road, Chennai, Tamil Nadu',
+    salary: 35000,
+  },
+  {
+    employeeId: 'EMP004',
+    name: 'Amit Deshmukh',
+    email: 'amit.deshmukh@campresort.in',
+    phoneNo: '+91-9345678901',
+    role: 'Security',
+    address: '78 FC Road, Pune, Maharashtra',
+    salary: 20000,
+  },
+  {
+    employeeId: 'EMP005',
+    name: 'Pooja Patel',
+    email: 'pooja.patel@campresort.in',
+    phoneNo: '+91-9012345678',
+    role: 'Cleaner',
+    address: '56 SG Highway, Ahmedabad, Gujarat',
+    salary: 18000,
+  },
+];;

@@ -1,9 +1,8 @@
-import React from 'react'
+import EmpTable from "@/components/shared/emp-table";
+import React from "react";
 
 const TeamPage = () => {
-  return (
-    <div>TeamPage</div>
-  )
-}
+  return <EmpTable />;
+};
 
-export default TeamPage
+export default TeamPage;

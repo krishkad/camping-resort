@@ -1,8 +1,9 @@
-import { DataTableDemo } from "@/components/shared/data-table";
+import BookingTable from "@/components/shared/booking-table";
+// import { DataTableDemo } from "@/components/shared/data-table";
 import React from "react";
 
 const BookingsPage = () => {
-  return <DataTableDemo />;
+  return <BookingTable />;
 };
 
 export default BookingsPage;

@@ -2,9 +2,7 @@ import React, { ReactNode } from "react";
 import AppSidebar from "@/components/shared/app-sidebar";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-// import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-// import { usePathname } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Toaster } from "@/components/ui/sonner";
 import { Separator } from "@/components/ui/separator";
@@ -13,6 +11,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import DashboardName from "@/components/shared/dashboard-name";
 
 const DashboardLayout = ({ children }: { children: ReactNode }) => {
   return (
@@ -26,10 +25,8 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
             <div className="max-w-7xl mx-auto flex items-center justify-between gap-5">
               <div className="flex items-center justify-center gap-3">
                 <SidebarTrigger />
-                <h4 className="text-base font-semibold whitespace-nowrap text-ellipsis">
-                  {/* {title ? title.label : "Dashboard"} */}
-                  Dashboard
-                </h4>
+                {/* {title ? title.label : "Dashboard"} */}
+                <DashboardName />
               </div>
               <div className="flex items-center justify-center gap-3">
                 <Popover>
