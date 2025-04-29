@@ -31,7 +31,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import BookingModel from "./booking-model";
 // import { Booking } from "@/constants/index.c";
 
 export type Payment = {
