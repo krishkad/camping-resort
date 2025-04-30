@@ -20,7 +20,7 @@ import { IoMdTrash } from "react-icons/io";
 import { LuSquareDot } from "react-icons/lu";
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "../ui/button";
-import { ArrowUpDown, Share2Icon, ShareIcon } from "lucide-react";
+import { ArrowUpDown, Share2Icon } from "lucide-react";
 import BookingModel from "./booking-model";
 import BookingDeleteModel from "./booking-delete-model";
 
