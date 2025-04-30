@@ -20,11 +20,16 @@ import { IoMdTrash } from "react-icons/io";
 import { LuSquareDot } from "react-icons/lu";
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "../ui/button";
-import { ArrowUpDown } from "lucide-react";
+import { ArrowUpDown, Share2Icon, ShareIcon } from "lucide-react";
 import BookingModel from "./booking-model";
+import BookingDeleteModel from "./booking-delete-model";
 
 const BookingTable = () => {
   const [open, setOpen] = useState<boolean>(false);
+  const [deleteOpen, setDeleteOpen] = useState<boolean>(false);
+  const [deleteBooking, setDeleteBooking] = useState<Booking | undefined>(
+    undefined
+  );
   const [updateBooking, setUpdateBooking] = useState<Booking | undefined>(
     undefined
   );
@@ -266,13 +271,43 @@ const BookingTable = () => {
         );
       },
     },
+   
+    {
+      id: "share",
+      enableHiding: false,
+      cell: ({ row }) => {
+        // const payment = row.original;
+
+        return (
+          <Share2Icon
+            className="w-4 h-4  text-green-700 cursor-pointer"
+            onClick={() => {
+              setDeleteOpen(true);
+              setDeleteBooking({
+                ...row.original,
+              });
+            }}
+          />
+        );
+      },
+    },
     {
       id: "deleteActions",
       enableHiding: false,
-      cell: ({}) => {
+      cell: ({ row }) => {
         // const payment = row.original;
 
-        return <IoMdTrash className="w-4 h-4 mx-3 text-red-500" />;
+        return (
+          <IoMdTrash
+            className="w-4 h-4 mr-3 text-red-500 cursor-pointer"
+            onClick={() => {
+              setDeleteOpen(true);
+              setDeleteBooking({
+                ...row.original,
+              });
+            }}
+          />
+        );
       },
     },
   ];
@@ -280,7 +315,16 @@ const BookingTable = () => {
   return (
     <>
       <DataTable columns={columns} data={bookings} />;
-      <BookingModel open={open} onOpenChange={setOpen} booking={updateBooking} />
+      <BookingModel
+        open={open}
+        onOpenChange={setOpen}
+        booking={updateBooking}
+      />
+      <BookingDeleteModel
+        open={deleteOpen}
+        onOpenChange={setDeleteOpen}
+        booking={deleteBooking}
+      />
     </>
   );
 };
