@@ -218,6 +218,7 @@ const BookingModel = ({
                       <SelectItem value="Paid">Paid</SelectItem>
                       <SelectItem value="Partial">Partial</SelectItem>
                       <SelectItem value="Unpaid">Unpaid</SelectItem>
+                      <SelectItem value="Unpaid">Re-funded</SelectItem>
                     </SelectGroup>
                   </SelectContent>
                 </Select>

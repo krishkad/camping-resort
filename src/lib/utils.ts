@@ -93,5 +93,12 @@ export const getPaymentStatus = (
         case "bg":
           return "bg-[#FFE4E6]";
       }
+    case "Re-funded":
+      switch (property) {
+        case "text":
+          return "text-orange-600";
+        case "bg":
+          return "bg-orange-200";
+      }
   }
 };

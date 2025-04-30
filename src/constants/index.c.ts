@@ -7,7 +7,7 @@ import { FiSettings } from "react-icons/fi";
 
 
 export type BookingStatus = "Confirmed" | "Pending" | "Cancelled";
-export type PaymentStatus = "Paid" | "Unpaid" | "Partial";
+export type PaymentStatus = "Paid" | "Unpaid" | "Partial" | "Re-funded";
 export type CheckInStatus = "Checked-in" | "Not Checked-in" | "Checked-out";
 export type RoomType = "Standard" | "Deluxe" | "Suite" | "Penthouse";
 
@@ -73,6 +73,26 @@ export const bookings: Booking[] = [
     specialRequests: "Sea-facing room, baby cot",
     createdAt: "2025-04-22T14:10:00Z",
     updatedAt: "2025-04-24T12:45:00Z"
+  },
+  {
+    id: "BKG123453",
+    clientName: "Nikita Rao",
+    email: "nikita.rao@example.com",
+    phoneNumber: "+91-9988774455",
+    foodPreference: "Veg",
+    checkInDate: "2025-04-28",
+    checkOutDate: "2025-04-30",
+    checkInStatus: "Not Checked-in",
+    bookingStatus: "Cancelled",
+    paymentStatus: "Re-funded",
+    amount: 9000,
+    roomType: "Standard",
+    roomNumber: null,
+    numberOfAdults: 2,
+    numberOfKids: 0,
+    specialRequests: "Window view",
+    createdAt: "2025-04-15T12:00:00Z",
+    updatedAt: "2025-04-18T10:00:00Z"
   },
   {
     id: "BKG123458",
@@ -153,6 +173,26 @@ export const bookings: Booking[] = [
     specialRequests: "Airport pickup",
     createdAt: "2025-04-23T13:50:00Z",
     updatedAt: "2025-04-24T07:00:00Z"
+  },
+  {
+    id: "BKG123454",
+    clientName: "Harshit Bansal",
+    email: "harshit.bansal@example.com",
+    phoneNumber: "+91-7766558822",
+    foodPreference: "Non-Veg",
+    checkInDate: "2025-05-02",
+    checkOutDate: "2025-05-05",
+    checkInStatus: "Not Checked-in",
+    bookingStatus: "Cancelled",
+    paymentStatus: "Re-funded",
+    amount: 15000,
+    roomType: "Deluxe",
+    roomNumber: null,
+    numberOfAdults: 1,
+    numberOfKids: 0,
+    specialRequests: "No feather pillows",
+    createdAt: "2025-04-19T08:15:00Z",
+    updatedAt: "2025-04-20T09:00:00Z"
   },
   {
     id: "BKG123462",
