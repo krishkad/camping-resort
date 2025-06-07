@@ -1,8 +1,7 @@
 
-import { MdDashboard } from "react-icons/md";
-import { GiCampingTent } from "react-icons/gi";
 import { FaCalendarAlt, FaUsers } from "react-icons/fa";
 import { FiSettings } from "react-icons/fi";
+import { MdDashboard } from "react-icons/md";
 
 
 

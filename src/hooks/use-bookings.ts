@@ -9,23 +9,27 @@ export const useBookings = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = localStorage.getItem("authtoken") || ''; // move inside useEffect
-        const res = await fetch("http://localhost:5000/api/booking/all", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            authtoken: token ?? "", // handle null safely
-          },
-        });
+        const token = localStorage.getItem("authtoken") || ""; // move inside useEffect
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/booking/all`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              authtoken: token ?? "", // handle null safely
+            },
+          }
+        );
 
         const data = await res.json();
-        console.log(data)
+        console.log(data);
 
         if (!data.success) {
           setError(data.message);
         }
 
         setBookingData(data.data);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
         console.error("Failed to fetch bookings:", err);
         setError(err.message || "Unknown error");

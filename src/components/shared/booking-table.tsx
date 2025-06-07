@@ -1,36 +1,31 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import DataTable from "./data-table";
 import {
-  Booking,
   BookingStatus,
   CheckInStatus,
-  bookings,
-  PaymentStatus,
-  PaymentStatusD,
+  PaymentStatusD
 } from "@/constants/index.c";
-import { Badge } from "../ui/badge";
+import { useBookings } from "@/hooks/use-bookings";
 import {
   cn,
+  deleteBooking as delBookingFunc,
   getBookingStatus,
   getCheckInStatus,
   getPaymentStatus,
+  updateBooking as updateBookingFunc,
 } from "@/lib/utils";
+import { BookingD } from "@/types";
+import { ColumnDef } from "@tanstack/react-table";
+import { ArrowUpDown, Share2Icon } from "lucide-react";
+import { useEffect, useState } from "react";
 import { FiEdit } from "react-icons/fi";
 import { IoMdTrash } from "react-icons/io";
 import { LuSquareDot } from "react-icons/lu";
-import { ColumnDef } from "@tanstack/react-table";
-import { Button } from "../ui/button";
-import { ArrowUpDown, Share2Icon } from "lucide-react";
-import BookingModel from "./booking-model";
-import BookingDeleteModel from "./booking-delete-model";
-import { useBookings } from "@/hooks/use-bookings";
-import { BookingD } from "@/types";
-import {
-  deleteBooking as delBookingFunc,
-  updateBooking as updateBookingFunc,
-} from "@/lib/utils";
 import { toast } from "sonner";
+import { Badge } from "../ui/badge";
+import { Button } from "../ui/button";
+import BookingDeleteModel from "./booking-delete-model";
+import BookingModel from "./booking-model";
+import DataTable from "./data-table";
 
 const BookingTable = () => {
   const { bookingData, loading, error } = useBookings();

@@ -1,7 +1,7 @@
 "use client";
 
+import { CalendarIcon } from "lucide-react";
 import * as React from "react";
-import { CalendarIcon, ChevronDownIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -11,8 +11,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { format } from "date-fns";
 import { cn } from "@/lib/utils";
+import { format } from "date-fns";
 
 export function Calendar22({
   dateProp,

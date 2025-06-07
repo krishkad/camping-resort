@@ -10,13 +10,16 @@ export function useUser() {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem("authtoken");
-        const response = await fetch(`http://localhost:5000/api/user/all`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            authtoken: `${token}`,
-          },
-        });
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/user/all`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              authtoken: `${token}`,
+            },
+          }
+        );
 
         const data = await response.json();
 
@@ -25,6 +28,7 @@ export function useUser() {
         }
 
         setUserData(data.data);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
         console.error("Failed to fetch bookings:", error);
         setError(error.message || "Unknown error");

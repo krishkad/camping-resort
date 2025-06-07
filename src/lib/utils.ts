@@ -1,8 +1,7 @@
 import {
   BookingStatus,
   CheckInStatus,
-  PaymentStatus,
-  PaymentStatusD,
+  PaymentStatusD
 } from "@/constants/index.c";
 import { BookingD, UserD } from "@/types";
 import { clsx, type ClassValue } from "clsx";
@@ -119,7 +118,7 @@ export const updateBooking = async (
 
   try {
     const response = await fetch(
-      `http://localhost:5000/api/booking/update/${booking.id}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/api/booking/update/${booking.id}`,
       {
         method: "PUT",
         headers: {
@@ -141,6 +140,7 @@ export const updateBooking = async (
     console.log({ res });
 
     return { booking: res.data, error: null };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     return { booking: null, error: err.message || "Something went wrong." };
   }
@@ -155,7 +155,7 @@ export const deleteBooking = async (
 
   try {
     const response = await fetch(
-      `http://localhost:5000/api/booking/delete/${id}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/api/booking/delete/${id}`,
       {
         method: "DELETE",
         headers: {
@@ -176,6 +176,7 @@ export const deleteBooking = async (
     console.log({ res });
 
     return { booking: res.booking, error: null };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     return { booking: null, error: err.message || "Something went wrong." };
   }
@@ -192,7 +193,7 @@ export const updateTeam = async (
 
   try {
     const response = await fetch(
-      `http://localhost:5000/api/user/update/${user.id}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/api/user/update/${user.id}`,
       {
         method: "PUT",
         headers: {
@@ -213,6 +214,7 @@ export const updateTeam = async (
     }
 
     return { user: res.data, error: null };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     return { user: null, error: err.message || "Something went wrong." };
   }
@@ -227,7 +229,7 @@ export const deleteTeam = async (
 
   try {
     const response = await fetch(
-      `http://localhost:5000/api/user/delete/${id}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/api/user/delete/${id}`,
       {
         method: "DELETE",
         headers: {
@@ -247,6 +249,7 @@ export const deleteTeam = async (
     }
 
     return { user: res.data, error: null };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     return { user: null, error: err.message || "Something went wrong." };
   }

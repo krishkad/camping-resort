@@ -1,18 +1,18 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import DataTable from "./data-table";
+import { useUser } from "@/hooks/use-user";
+import { deleteTeam, updateTeam } from "@/lib/utils";
+import { UserD } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
-import { Button } from "../ui/button";
-import { ArrowUpDown, Share2Icon } from "lucide-react";
+import { ArrowUpDown } from "lucide-react";
+import { useEffect, useState } from "react";
 import { FiEdit } from "react-icons/fi";
 import { IoMdTrash } from "react-icons/io";
-import { useUser } from "@/hooks/use-user";
-import { UserD } from "@/types";
-import UserEditModel from "./user-edit-model";
-import UserDeleteModal from "./user-delete-modal";
-import { deleteTeam, updateTeam } from "@/lib/utils";
 import { toast } from "sonner";
+import { Button } from "../ui/button";
+import DataTable from "./data-table";
+import UserDeleteModal from "./user-delete-modal";
+import UserEditModel from "./user-edit-model";
 
 const EmpTable = () => {
   const { userData, loading, error } = useUser();
