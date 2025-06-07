@@ -24,8 +24,8 @@ export default function AppSidebar() {
   const pathname = usePathname();
 
   return (
-    <Sidebar className="border-none">
-      <SidebarContent>
+    <Sidebar className="border-gray-200">
+      <SidebarContent className="bg-white">
         <SidebarGroup>
           <SidebarGroupLabel className="pt-5">
             <Link href="/" className="flex items-center space-x-2">
@@ -44,12 +44,12 @@ export default function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu className="pt-10">
               {ADMINROUTE.map((item, i) => (
-                <SidebarMenuItem key={i} className="h-14 border-none">
+                <SidebarMenuItem key={i} className="h-12 px-5 border-none mt-2">
                   <SidebarMenuButton
                     asChild
                     className={cn(
-                      "h-full border-none focus:border-none focus-visible:ring-0 hover:text-white hover:bg-[#5B913B] active:bg-[#5B913B] active:text-white px-4 ",
-                      pathname === item.href && "bg-[#5B913B]"
+                      "h-full rounded-2xl border-none focus:border-none focus-visible:ring-0  px-4",
+                      pathname === item.href ? "bg-[#5B913B] hover:bg-[#5B913B]" : "hover:bg-secondary"
                     )}
                   >
                     {!isMobile ? (

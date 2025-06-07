@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Booking } from "@/constants/index.c";
 import {
   Select,
   SelectContent,
@@ -21,29 +20,69 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "../ui/textarea";
 import { ScrollArea } from "../ui/scroll-area";
+import { BookingD } from "@/types";
+import { useEffect, useState } from "react";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { CalendarIcon } from "lucide-react";
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
+import { Calendar22 } from "./date-picker";
 
 const BookingModel = ({
   open,
   onOpenChange,
   booking,
+  upBooking,
 }: {
   open: boolean;
   onOpenChange: (value: boolean) => void;
-  booking: Booking | undefined;
+  booking: BookingD | undefined;
+  upBooking: (value: BookingD) => void;
 }) => {
-  if (booking === undefined) {
-    return null;
+  const [bookingData, setBookingData] = useState<BookingD | undefined | null>(
+    booking
+  );
+
+  useEffect(() => {
+    setBookingData(booking ?? null);
+  }, [booking]);
+
+  if (!bookingData) return null;
+
+  const onChangeHandler = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
+    const { name, value } = e.target;
+    setBookingData({ ...bookingData, [name]: value });
+  };
+
+  function parseISOToLocalDate(isoString: string): Date {
+    if (!isoString) return new Date();
+
+    const date = new Date(isoString);
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
   }
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[600px]">
+      <DialogContent
+        className="sm:max-w-[600px]"
+        onOpenAutoFocus={(e) => e.preventDefault()}
+      >
         <DialogHeader>
           <DialogTitle>Update Booking</DialogTitle>
           <DialogDescription>
             Make changes to booking here. Click save when you&apos;re done.
           </DialogDescription>
         </DialogHeader>
-        <ScrollArea className="w-full h-[calc(100vh-200px)]">
+        <ScrollArea className="w-full max-h-[600px]">
           <div className="w-full h-max">
             <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="w-full space-y-1">
@@ -52,8 +91,9 @@ const BookingModel = ({
                 </Label>
                 <Input
                   id="name"
-                  value={booking.clientName}
-                  onChange={() => {}}
+                  name="clientName"
+                  value={bookingData.clientName}
+                  onChange={onChangeHandler}
                   className="col-span-3"
                 />
               </div>
@@ -64,8 +104,9 @@ const BookingModel = ({
                 </Label>
                 <Input
                   id="email"
-                  value={booking.email}
-                  onChange={() => {}}
+                  name="email"
+                  value={bookingData.email}
+                  onChange={onChangeHandler}
                   className="col-span-3"
                 />
               </div>
@@ -75,8 +116,9 @@ const BookingModel = ({
                 </Label>
                 <Input
                   id="phoneNumber"
-                  value={booking.phoneNumber}
-                  onChange={() => {}}
+                  name="phoneNumber"
+                  value={bookingData.phoneNumber}
+                  onChange={onChangeHandler}
                   className="col-span-3"
                 />
               </div>
@@ -86,8 +128,9 @@ const BookingModel = ({
                 </Label>
                 <Input
                   id="roomNumber"
-                  value={booking.roomNumber!}
-                  onChange={() => {}}
+                  name="roomNumber"
+                  value={bookingData.roomNumber!}
+                  onChange={onChangeHandler}
                   className="col-span-3"
                 />
               </div>
@@ -95,23 +138,97 @@ const BookingModel = ({
                 <Label htmlFor="roomNumber" className="text-right">
                   Check-In
                 </Label>
-                <Input
-                  id="roomNumber"
-                  value={booking.roomNumber!}
-                  onChange={() => {}}
-                  className="col-span-3"
-                />
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant={"outline"}
+                      className={cn(
+                        "w-full justify-start text-left font-normal border-gray-200",
+                        !bookingData.checkInDate && "text-muted-foreground"
+                      )}
+                    >
+                      <CalendarIcon />
+                      {bookingData.checkInDate ? (
+                        format(new Date(bookingData.checkInDate), "PPP")
+                      ) : (
+                        <span>Pick a date</span>
+                      )}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent
+                    forceMount
+                    className=" w-auto p-0 border-gray-200 pointer-events-auto"
+                    align="start"
+                  >
+                    <Calendar
+                      mode="single"
+                      className="z-[1000]"
+                      selected={
+                        bookingData.checkInDate
+                          ? new Date(bookingData.checkInDate)
+                          : undefined
+                      }
+                      defaultMonth={new Date(bookingData.checkInDate)}
+                      onSelect={(date) => {
+                        if (!date) return;
+                        setBookingData((prev) => ({
+                          ...prev!,
+                          checkInDate: date.toISOString(), // store in ISO format
+                        }));
+                      }}
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
               </div>
               <div className="w-full space-y-1">
                 <Label htmlFor="roomNumber" className="text-right">
                   Check-Out
                 </Label>
-                <Input
-                  id="roomNumber"
-                  value={booking.roomNumber!}
-                  onChange={() => {}}
-                  className="col-span-3"
-                />
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant={"outline"}
+                      className={cn(
+                        "w-full justify-start text-left font-normal border-gray-200",
+                        !bookingData.checkOutDate && "text-muted-foreground"
+                      )}
+                    >
+                      <CalendarIcon />
+                      {bookingData.checkOutDate ? (
+                        format(new Date(bookingData.checkOutDate), "PPP")
+                      ) : (
+                        <span>Pick a date</span>
+                      )}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent
+                    className=" w-auto p-0 border-gray-200 overflow-visible pointer-events-auto"
+                    align="start"
+                    onOpenAutoFocus={(e) => e.preventDefault()}
+                    forceMount
+                  >
+                    <Calendar
+                      mode="single"
+                      className="z-50"
+                      selected={
+                        bookingData.checkOutDate
+                          ? parseISOToLocalDate(bookingData.checkOutDate)
+                          : new Date(2025, 8, 1) // September is month 8 (0-indexed)
+                      }
+                      defaultMonth={new Date(bookingData.checkOutDate)}
+                      onSelect={(date) => {
+                        if (!date) return;
+                        setBookingData((prev) => ({
+                          ...prev!,
+                          checkOutDate: date.toISOString(), // store in ISO format
+                        }));
+                      }}
+                      fromDate={new Date()}
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
               </div>
               <div className="w-full grid grid-cols-2 gap-4">
                 <div className="w-full space-y-1">
@@ -120,8 +237,9 @@ const BookingModel = ({
                   </Label>
                   <Input
                     id="numberOfAdults"
-                    value={booking.numberOfAdults!}
-                    onChange={() => {}}
+                    name="numberOfAdults"
+                    value={bookingData.numberOfAdults!}
+                    onChange={onChangeHandler}
                     className="col-span-3"
                   />
                 </div>
@@ -131,8 +249,9 @@ const BookingModel = ({
                   </Label>
                   <Input
                     id="numberOfKids"
-                    value={booking.numberOfKids!}
-                    onChange={() => {}}
+                    name="numberOfKids"
+                    value={bookingData.numberOfKids!}
+                    onChange={onChangeHandler}
                     className="col-span-3"
                   />
                 </div>
@@ -141,18 +260,23 @@ const BookingModel = ({
                 <Label htmlFor="foodPreference" className="text-right">
                   Food Preference
                 </Label>
-                <Select>
+                <Select
+                  defaultValue={bookingData.foodPreference}
+                  onValueChange={(value) => {
+                    setBookingData({
+                      ...bookingData,
+                      foodPreference: value,
+                    } as BookingD);
+                  }}
+                >
                   <SelectTrigger className="w-[100%]">
-                    <SelectValue
-                      placeholder="Select a fruit"
-                      defaultValue={booking.foodPreference}
-                    />
+                    <SelectValue placeholder="Select a fruit" />
                   </SelectTrigger>
                   <SelectContent className="border-gray-300">
                     <SelectGroup>
                       <SelectLabel>Food</SelectLabel>
                       <SelectItem value="Veg">Veg</SelectItem>
-                      <SelectItem value="Non-Veg">Non-Veg</SelectItem>
+                      <SelectItem value="Non_Veg">Non-Veg</SelectItem>
                     </SelectGroup>
                   </SelectContent>
                 </Select>
@@ -161,21 +285,29 @@ const BookingModel = ({
                 <Label htmlFor="checkInStatus" className="text-right">
                   Check-In Status
                 </Label>
-                <Select>
+                <Select
+                  defaultValue={bookingData.checkInStatus}
+                  onValueChange={(value) =>
+                    setBookingData(
+                      (prev) =>
+                        ({
+                          ...prev,
+                          checkInStatus: value,
+                        } as BookingD)
+                    )
+                  }
+                >
                   <SelectTrigger className="w-[100%]">
-                    <SelectValue
-                      placeholder="Select a fruit"
-                      defaultValue={booking.checkInStatus}
-                    />
+                    <SelectValue placeholder="Select a fruit" />
                   </SelectTrigger>
                   <SelectContent className="border-gray-300">
                     <SelectGroup>
                       <SelectLabel>Status</SelectLabel>
-                      <SelectItem value="Checked-in">Checked-in</SelectItem>
-                      <SelectItem value="Not Checked-in">
+                      <SelectItem value="CheckedIn">Checked-in</SelectItem>
+                      <SelectItem value="NotCheckedIn">
                         Not Checked-in
                       </SelectItem>
-                      <SelectItem value="Checked-out">Checked-out</SelectItem>
+                      <SelectItem value="CheckedOut">Checked-out</SelectItem>
                     </SelectGroup>
                   </SelectContent>
                 </Select>
@@ -184,12 +316,20 @@ const BookingModel = ({
                 <Label htmlFor="bookingStatus" className="text-right">
                   Booking Status
                 </Label>
-                <Select>
+                <Select
+                  defaultValue={bookingData.bookingStatus}
+                  onValueChange={(value) =>
+                    setBookingData(
+                      (prev) =>
+                        ({
+                          ...prev,
+                          bookingStatus: value,
+                        } as BookingD)
+                    )
+                  }
+                >
                   <SelectTrigger className="w-[100%]">
-                    <SelectValue
-                      placeholder="Select a fruit"
-                      defaultValue={booking.bookingStatus}
-                    />
+                    <SelectValue placeholder="Select a fruit" />
                   </SelectTrigger>
                   <SelectContent className="border-gray-300">
                     <SelectGroup>
@@ -205,20 +345,28 @@ const BookingModel = ({
                 <Label htmlFor="paymentStatus" className="text-right">
                   Payment Status
                 </Label>
-                <Select>
+                <Select
+                  defaultValue={bookingData.paymentStatus}
+                  onValueChange={(value) =>
+                    setBookingData(
+                      (prev) =>
+                        ({
+                          ...prev,
+                          paymentStatus: value,
+                        } as BookingD)
+                    )
+                  }
+                >
                   <SelectTrigger className="w-[100%]">
-                    <SelectValue
-                      placeholder="Select a fruit"
-                      defaultValue={booking.paymentStatus}
-                    />
+                    <SelectValue placeholder="Select a fruit" />
                   </SelectTrigger>
                   <SelectContent className="border-gray-300">
                     <SelectGroup>
                       <SelectLabel>Status</SelectLabel>
                       <SelectItem value="Paid">Paid</SelectItem>
-                      <SelectItem value="Partial">Partial</SelectItem>
+                      <SelectItem value="Pending">Pending</SelectItem>
                       <SelectItem value="Unpaid">Unpaid</SelectItem>
-                      <SelectItem value="Unpaid">Re-funded</SelectItem>
+                      <SelectItem value="Failed">Failed</SelectItem>
                     </SelectGroup>
                   </SelectContent>
                 </Select>
@@ -227,12 +375,20 @@ const BookingModel = ({
                 <Label htmlFor="roomType" className="text-right">
                   Room Type
                 </Label>
-                <Select>
+                <Select
+                  defaultValue={bookingData.roomType}
+                  onValueChange={(value) =>
+                    setBookingData(
+                      (prev) =>
+                        ({
+                          ...prev,
+                          roomType: value,
+                        } as BookingD)
+                    )
+                  }
+                >
                   <SelectTrigger className="w-[100%]">
-                    <SelectValue
-                      placeholder="Select a fruit"
-                      defaultValue={booking.roomType}
-                    />
+                    <SelectValue placeholder="Select a fruit" />
                   </SelectTrigger>
                   <SelectContent className="border-gray-300">
                     <SelectGroup>
@@ -251,8 +407,9 @@ const BookingModel = ({
               </Label>
               <Input
                 id="amount"
-                value={booking.amount!}
-                onChange={() => {}}
+                name="amount"
+                value={bookingData.amount!}
+                onChange={onChangeHandler}
                 className="col-span-3"
               />
             </div>
@@ -261,15 +418,24 @@ const BookingModel = ({
                 Special Request
               </Label>
               <Textarea
+                name="specialRequests"
                 id="specialRequests"
-                value={booking.specialRequests!}
-                onChange={() => {}}
+                value={bookingData.specialRequests!}
+                onChange={onChangeHandler}
                 className="col-span-3"
               />
             </div>
 
             <DialogFooter className="w-full mt-4">
-              <Button className="w-full" type="submit">
+              <Button
+                className="w-full"
+                type="submit"
+                onClick={() => {
+                  onOpenChange(false);
+                  console.log({ bookingData });
+                  upBooking(bookingData!);
+                }}
+              >
                 Save changes
               </Button>
             </DialogFooter>

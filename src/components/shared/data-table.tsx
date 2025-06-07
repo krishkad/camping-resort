@@ -75,7 +75,7 @@ const DataTable = <T,>({
   });
 
   return (
-    <div className="w-full p-4  border border-gray-200 rounded-md hover:shadow-md transition-all duration-300">
+    <div className="w-full p-4 bg-white border border-gray-200 rounded-md hover:shadow-md transition-all duration-300">
       <div className="flex items-center gap-4 py-4">
         <Input
           placeholder="Filter emails..."
@@ -87,7 +87,7 @@ const DataTable = <T,>({
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
+            <Button variant="outline" className="ml-auto border-gray-200">
               Columns <ChevronDown />
             </Button>
           </DropdownMenuTrigger>
@@ -119,7 +119,7 @@ const DataTable = <T,>({
               <TableRow key={headerGroup.id} className="border-gray-200">
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead key={header.id} className="h-12">
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -141,7 +141,7 @@ const DataTable = <T,>({
                   className="border-gray-200"
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <TableCell key={cell.id} className="h-12">
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()

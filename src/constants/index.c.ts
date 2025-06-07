@@ -8,6 +8,7 @@ import { FiSettings } from "react-icons/fi";
 
 export type BookingStatus = "Confirmed" | "Pending" | "Cancelled";
 export type PaymentStatus = "Paid" | "Unpaid" | "Partial" | "Re-funded";
+export type PaymentStatusD = "Paid" | "Pending" | "Partial" | "Re-funded";
 export type CheckInStatus = "Checked-in" | "Not Checked-in" | "Checked-out";
 export type RoomType = "Standard" | "Deluxe" | "Suite" | "Penthouse";
 
@@ -385,12 +386,12 @@ export const ADMINROUTE = [
     value: "dashboard",
     icon: MdDashboard,
   },
-  {
-    href: "/v1/campsites",
-    label: "Manage Campsites",
-    value: "campsites",
-    icon: GiCampingTent,
-  },
+  // {
+  //   href: "/v1/campsites",
+  //   label: "Manage Campsites",
+  //   value: "campsites",
+  //   icon: GiCampingTent,
+  // },
   {
     href: "/v1/bookings",
     label: "Booking Management",

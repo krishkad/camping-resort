@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DataTable from "./data-table";
 import {
   Booking,
@@ -7,6 +7,7 @@ import {
   CheckInStatus,
   bookings,
   PaymentStatus,
+  PaymentStatusD,
 } from "@/constants/index.c";
 import { Badge } from "../ui/badge";
 import {
@@ -23,18 +24,38 @@ import { Button } from "../ui/button";
 import { ArrowUpDown, Share2Icon } from "lucide-react";
 import BookingModel from "./booking-model";
 import BookingDeleteModel from "./booking-delete-model";
+import { useBookings } from "@/hooks/use-bookings";
+import { BookingD } from "@/types";
+import {
+  deleteBooking as delBookingFunc,
+  updateBooking as updateBookingFunc,
+} from "@/lib/utils";
+import { toast } from "sonner";
 
 const BookingTable = () => {
+  const { bookingData, loading, error } = useBookings();
   const [open, setOpen] = useState<boolean>(false);
   const [deleteOpen, setDeleteOpen] = useState<boolean>(false);
-  const [deleteBooking, setDeleteBooking] = useState<Booking | undefined>(
+  const [deleteBooking, setDeleteBooking] = useState<BookingD | undefined>(
     undefined
   );
-  const [updateBooking, setUpdateBooking] = useState<Booking | undefined>(
+  const [updateBooking, setUpdateBooking] = useState<BookingD | undefined>(
     undefined
   );
 
-  const columns: ColumnDef<Booking>[] = [
+  if (
+    !bookingData &&
+    bookingData !== null &&
+    !loading &&
+    bookingData === undefined &&
+    error === "not authorized"
+  ) {
+    return <>ok</>;
+  }
+
+  const [data, setData] = useState<BookingD[] | null>(bookingData);
+
+  const columns: ColumnDef<BookingD>[] = [
     {
       accessorKey: "clientName",
       header: "Guest Name",
@@ -75,23 +96,37 @@ const BookingTable = () => {
       header: () => <div className="text-right">Check In</div>,
       cell: ({ row }) => {
         const checkInDate = row.getValue("checkInDate");
+        const date = new Date(checkInDate as string);
+
+        const day = String(date.getUTCDate()).padStart(2, "0");
+        const month = String(date.getUTCMonth() + 1).padStart(2, "0");
+        const year = date.getUTCFullYear();
+
+        const formatted = `${day}-${month}-${year}`;
 
         return (
           <div className="text-right font-medium ml-4">
-            {checkInDate as string}
+            {formatted as string}
           </div>
         );
       },
     },
     {
       accessorKey: "checkOutDate",
-      header: () => <div className="text-right">Check In</div>,
+      header: () => <div className="text-right">Check Out</div>,
       cell: ({ row }) => {
         const checkOutDate = row.getValue("checkOutDate");
+        const date = new Date(checkOutDate as string);
+
+        const day = String(date.getUTCDate()).padStart(2, "0");
+        const month = String(date.getUTCMonth() + 1).padStart(2, "0");
+        const year = date.getUTCFullYear();
+
+        const formatted = `${day}-${month}-${year}`;
 
         return (
           <div className="text-right font-medium ml-4">
-            {checkOutDate as string}
+            {formatted as string}
           </div>
         );
       },
@@ -154,7 +189,11 @@ const BookingTable = () => {
                 foodPreference === "Veg" ? "text-green-600" : "text-red-500"
               }
             />
-            {foodPreference as string}
+            {foodPreference === "Veg"
+              ? "Veg"
+              : foodPreference === "Non_Veg"
+              ? "Non-Veg"
+              : "default"}
           </div>
         );
       },
@@ -175,16 +214,21 @@ const BookingTable = () => {
       header: () => <div className="text-right">Check-In Status</div>,
       cell: ({ row }) => {
         const checkInStatus = row.getValue("checkInStatus");
-
+        const checkStatus =
+          checkInStatus === "NotCheckedIn"
+            ? "Not Checked-in"
+            : checkInStatus === "CheckedIn"
+            ? "Checked-in"
+            : "Checked-out";
         return (
           <div className="text-right font-medium">
             <Badge
               className={cn(
-                getCheckInStatus(checkInStatus as CheckInStatus, "text"),
-                getCheckInStatus(checkInStatus as CheckInStatus, "bg")
+                getCheckInStatus(checkStatus as CheckInStatus, "text"),
+                getCheckInStatus(checkStatus as CheckInStatus, "bg")
               )}
             >
-              {checkInStatus as string}
+              {checkStatus as string}
             </Badge>
           </div>
         );
@@ -195,16 +239,21 @@ const BookingTable = () => {
       header: () => <div className="text-right">Booking Status</div>,
       cell: ({ row }) => {
         const bookingStatus = row.getValue("bookingStatus");
-
+        const bookStatus =
+          bookingStatus === "Pending"
+            ? "Pending"
+            : bookingStatus === "Confirmed"
+            ? "Confirmed"
+            : "Cancelled";
         return (
           <div className="text-right font-medium">
             <Badge
               className={cn(
-                getBookingStatus(bookingStatus as BookingStatus, "text"),
-                getBookingStatus(bookingStatus as BookingStatus, "bg")
+                getBookingStatus(bookStatus as BookingStatus, "text"),
+                getBookingStatus(bookStatus as BookingStatus, "bg")
               )}
             >
-              {bookingStatus as string}
+              {bookStatus as string}
             </Badge>
           </div>
         );
@@ -220,8 +269,8 @@ const BookingTable = () => {
           <div className="text-right font-medium">
             <Badge
               className={cn(
-                getPaymentStatus(paymentStatus as PaymentStatus, "text"),
-                getPaymentStatus(paymentStatus as PaymentStatus, "bg")
+                getPaymentStatus(paymentStatus as PaymentStatusD, "text"),
+                getPaymentStatus(paymentStatus as PaymentStatusD, "bg")
               )}
             >
               {paymentStatus as string}
@@ -271,7 +320,7 @@ const BookingTable = () => {
         );
       },
     },
-   
+
     {
       id: "share",
       enableHiding: false,
@@ -312,15 +361,62 @@ const BookingTable = () => {
     },
   ];
 
+  useEffect(() => {
+    setData(bookingData);
+  }, [bookingData]);
+
+  const delBooking = async (id: string) => {
+    if (!id) {
+      console.log("no id");
+    }
+    console.log({ id });
+    const { booking, error } = await delBookingFunc(id);
+    console.log({ booking });
+    if (!error && booking) {
+      const filteredData = data?.filter((item) => item.id !== booking!.id);
+      console.log({ filteredData });
+      setData(filteredData!);
+      toast.success("Deletion successful");
+      // toast.success("Deletion successul");
+    } else {
+      toast.warning("Deletion unsuccessful");
+    }
+  };
+  const upBooking = async (bookingProps: BookingD) => {
+    if (!bookingProps) {
+      console.log("no id");
+    }
+    console.log({ bookingProps });
+    const { booking, error } = await updateBookingFunc(bookingProps);
+
+    if (!error && booking) {
+      const filteredData = data?.filter((item) => item.id !== booking!.id);
+      filteredData?.push(booking);
+      setData(filteredData!);
+      toast.success("Update successfully");
+      // toast.success("Deletion successul");
+    } else {
+      console.log({ error, booking });
+      toast.warning("Update unsuccessful");
+    }
+  };
+
   return (
     <>
-      <DataTable columns={columns} data={bookings} />;
+      <DataTable
+        key={JSON.stringify(data)}
+        columns={columns}
+        data={data !== null && data !== undefined ? data : []}
+      />
+      ;
       <BookingModel
         open={open}
         onOpenChange={setOpen}
         booking={updateBooking}
+        upBooking={upBooking}
       />
       <BookingDeleteModel
+        delBooking={delBooking}
         open={deleteOpen}
         onOpenChange={setDeleteOpen}
         booking={deleteBooking}

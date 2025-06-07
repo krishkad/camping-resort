@@ -1,21 +1,28 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DataTable from "./data-table";
 import { ColumnDef } from "@tanstack/react-table";
-import { Employee, employees } from "@/constants/index.c";
 import { Button } from "../ui/button";
-import { ArrowUpDown } from "lucide-react";
+import { ArrowUpDown, Share2Icon } from "lucide-react";
+import { FiEdit } from "react-icons/fi";
+import { IoMdTrash } from "react-icons/io";
+import { useUser } from "@/hooks/use-user";
+import { UserD } from "@/types";
+import UserEditModel from "./user-edit-model";
+import UserDeleteModal from "./user-delete-modal";
+import { deleteTeam, updateTeam } from "@/lib/utils";
+import { toast } from "sonner";
 
 const EmpTable = () => {
-  const columns: ColumnDef<Employee>[] = [
-    {
-      accessorKey: "employeeId",
-      header: "Emp Id",
-      cell: ({ row }) => (
-        <div className="capitalize font-medium">{row.getValue("employeeId")}</div>
-      ),
-    },
+  const { userData, loading, error } = useUser();
+  const [data, setData] = useState<UserD[] | null>(userData);
+  const [open, setOpen] = useState<boolean>(false);
+  const [openDelete, setOpenDelete] = useState(false);
+  const [updateUser, setUpdateUser] = useState<UserD | undefined>(undefined);
+  const [deleteUser, setDeleteUser] = useState<UserD | undefined>(undefined);
+
+  const columns: ColumnDef<UserD>[] = [
     {
       accessorKey: "name",
       header: "Name",
@@ -62,14 +69,110 @@ const EmpTable = () => {
       ),
     },
     {
-      accessorKey: "role",
+      accessorKey: "Role",
       header: "Role",
       cell: ({ row }) => (
-        <div className="capitalize font-medium">{row.getValue("role")}</div>
+        <div className="capitalize font-medium">{row.getValue("Role")}</div>
       ),
     },
+    {
+      id: "editActions",
+      enableHiding: false,
+      cell: ({ row }) => {
+        // const payment = row.original;
+
+        return (
+          <FiEdit
+            className="w-4 h-4 ml-3 text-yellow-500 cursor-pointer"
+            onClick={() => {
+              setOpen(true);
+              setUpdateUser({
+                ...row.original,
+              });
+            }}
+          />
+        );
+      },
+    },
+    {
+      id: "deleteActions",
+      enableHiding: false,
+      cell: ({ row }) => {
+        // const payment = row.original;
+
+        return (
+          <IoMdTrash
+            className="w-4 h-4 mr-3 text-red-500 cursor-pointer"
+            onClick={() => {
+              setOpenDelete(true);
+              setDeleteUser({
+                ...row.original,
+              });
+            }}
+          />
+        );
+      },
+    },
   ];
-  return <DataTable columns={columns} data={employees} />;
+
+  useEffect(() => {
+    setData(userData);
+  }, [userData]);
+
+  const delUser = async (id: string) => {
+    if (!id) {
+      console.log("no id found");
+    }
+
+    const { user, error } = await deleteTeam(id);
+
+    if (user && !error) {
+      const filteredData = data?.filter((item) => item.id !== user!.id);
+      setData(filteredData!);
+      toast.success("team member deleted successfully");
+    } else {
+      toast.warning(error || "failed to delete team member");
+    }
+  };
+
+  const upUser = async (userProp: UserD) => {
+    if (!userProp) {
+      console.log("no id found");
+    }
+
+    const { user, error } = await updateTeam(userProp);
+
+    if (user && !error) {
+      const filteredData = data?.filter((item) => item.id !== user!.id);
+      filteredData?.push(user);
+      setData(filteredData!);
+      toast.success("team member deleted successfully");
+    } else {
+      toast.warning(error || "failed to delete team member");
+    }
+  };
+
+  return (
+    <>
+      <DataTable
+        key={JSON.stringify(data)}
+        columns={columns}
+        data={data !== null && data !== undefined ? data : []}
+      />
+      <UserEditModel
+        open={open}
+        onOpenChange={setOpen}
+        user={updateUser}
+        upUser={upUser}
+      />
+      <UserDeleteModal
+        open={openDelete}
+        onOpenChange={setOpenDelete}
+        user={deleteUser}
+        delUser={delUser}
+      />
+    </>
+  );
 };
 
 export default EmpTable;

@@ -7,34 +7,34 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { ScrollArea } from "../ui/scroll-area";
-import { BookingD } from "@/types";
+import { UserD } from "@/types";
 import { Calendar1Icon, TriangleAlert, User2Icon } from "lucide-react";
 
-const BookingDeleteModel = ({
+const UserDeleteModal = ({
   open,
   onOpenChange,
-  booking,
-  delBooking,
+  user,
+  delUser,
 }: {
   open: boolean;
   onOpenChange: (value: boolean) => void;
-  booking: BookingD | undefined;
-  delBooking: (id: string) => void;
+  user: UserD | undefined;
+  delUser: (id: string) => void;
 }) => {
-  if (booking === undefined) {
+  if (user === undefined) {
     return null;
   }
-  const getFormatedDate = (dateProp: string) => {
-    const date = new Date(dateProp as string);
+  //   const getFormatedDate = (dateProp: string) => {
+  //     const date = new Date(dateProp as string);
 
-    const day = String(date.getUTCDate()).padStart(2, "0");
-    const month = String(date.getUTCMonth() + 1).padStart(2, "0");
-    const year = date.getUTCFullYear();
+  //     const day = String(date.getUTCDate()).padStart(2, "0");
+  //     const month = String(date.getUTCMonth() + 1).padStart(2, "0");
+  //     const year = date.getUTCFullYear();
 
-    const formatted = `${day}-${month}-${year}`;
+  //     const formatted = `${day}-${month}-${year}`;
 
-    return formatted;
-  };
+  //     return formatted;
+  //   };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -52,7 +52,7 @@ const BookingDeleteModel = ({
           <div className="w-full h-max">
             <div className="w-full">
               <h2 className="font-semibold text-xl text-center">
-                Delete Booking
+                Delete Team Member
               </h2>
               <p className="text-center">
                 This action cannot be undone. This will permanently remove the
@@ -66,8 +66,8 @@ const BookingDeleteModel = ({
                   <User2Icon />
                 </div>
                 <div className="-space-y-1.5">
-                  <p className="font-medium">{booking.clientName}</p>
-                  <p className="">{booking.email}</p>
+                  <p className="font-medium">{user.name}</p>
+                  <p className="">{user.email}</p>
                 </div>
               </div>
               <div className="w-full grid grid-cols-2 mt-6">
@@ -76,12 +76,8 @@ const BookingDeleteModel = ({
                     <Calendar1Icon className="w-4 h-4 shrink-0" />
                   </div>
                   <div className="">
-                    <p className="text-xs font-medium text-gray-500">
-                      Check in
-                    </p>
-                    <p className="text-sm">
-                      {getFormatedDate(booking.checkInDate)}
-                    </p>
+                    <p className="text-xs font-medium text-gray-500">Role</p>
+                    <p className="text-sm">{user.Role}</p>
                   </div>
                 </div>
                 <div className="w-full flex items-center justify-start gap-2.5">
@@ -89,12 +85,8 @@ const BookingDeleteModel = ({
                     <Calendar1Icon className="w-4 h-4 shrink-0" />
                   </div>
                   <div className="">
-                    <p className="text-xs font-medium text-gray-500">
-                      Check out
-                    </p>
-                    <p className="text-sm">
-                      {getFormatedDate(booking.checkOutDate)}
-                    </p>
+                    <p className="text-xs font-medium text-gray-500">Salary</p>
+                    <p className="text-sm">{user.salary}</p>
                   </div>
                 </div>
               </div>
@@ -105,9 +97,9 @@ const BookingDeleteModel = ({
                 className="w-full bg-red-500 hover:bg-red-600 focus:border-none focus:ring-0 focus-visible:ring-0"
                 type="submit"
                 onClick={() => {
-                  onOpenChange(false)
-                  console.log({ id: booking.id! });
-                  delBooking(booking.id);
+                  onOpenChange(false);
+                  console.log({ id: user.id });
+                  delUser(user.id);
                 }}
               >
                 Yes, Delete
@@ -120,4 +112,4 @@ const BookingDeleteModel = ({
   );
 };
 
-export default BookingDeleteModel;
+export default UserDeleteModal;

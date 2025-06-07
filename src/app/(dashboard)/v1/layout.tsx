@@ -21,43 +21,47 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
           {/* <div className="hidden md:block w-[260px]"> */}
           <AppSidebar />
           {/* </div> */}
-          <main className="w-full h-svh overflow-y-scroll p-5">
-            <div className="max-w-7xl mx-auto flex items-center justify-between gap-5">
-              <div className="flex items-center justify-center gap-3">
-                <SidebarTrigger />
-                {/* {title ? title.label : "Dashboard"} */}
-                <DashboardName />
-              </div>
-              <div className="flex items-center justify-center gap-3">
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Avatar>
-                      <AvatarImage
-                        src="https://github.com/shadcn.png"
-                        alt="@shadcn"
-                      />
-                      <AvatarFallback>CN</AvatarFallback>
-                    </Avatar>
-                  </PopoverTrigger>
-                  <PopoverContent className="mr-4 border-gray-300">
-                    <p className="text-base font-semibold">Emma White</p>
-                    <p className="text-sm font-medium">emmawhite@gmail.com</p>
-                    <Separator className={"w-full my-2"} />
-                    <Button
-                      variant={"ghost"}
-                      className="w-full flex justify-start"
-                    >
-                      Log out
-                    </Button>
-                  </PopoverContent>
-                </Popover>
+          <main className="w-full h-svh overflow-y-scroll bg-secondary/50">
+            <div className="sticky top-0 w-full bg-white">
+              <div className="max-w-7xl h-16 mx-auto  border-b border-gray-200 flex items-center justify-between gap-5 px-5">
+                <div className="flex items-center justify-center gap-3 ">
+                  <SidebarTrigger />
+                  {/* {title ? title.label : "Dashboard"} */}
+                  <DashboardName />
+                </div>
+                <div className="flex items-center justify-center gap-3">
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Avatar>
+                        <AvatarImage
+                          src="https://github.com/shadcn.png"
+                          alt="@shadcn"
+                        />
+                        <AvatarFallback>CN</AvatarFallback>
+                      </Avatar>
+                    </PopoverTrigger>
+                    <PopoverContent className="mr-4 border-gray-300">
+                      <p className="text-base font-semibold">Emma White</p>
+                      <p className="text-sm font-medium">emmawhite@gmail.com</p>
+                      <Separator className={"w-full my-2"} />
+                      <Button
+                        variant={"ghost"}
+                        className="w-full flex justify-start"
+                      >
+                        Log out
+                      </Button>
+                    </PopoverContent>
+                  </Popover>
+                </div>
               </div>
             </div>
-            <div className="max-w-7xl mx-auto mt-6">{children}</div>
+            <div className="w-full  p-5">
+              <div className="max-w-7xl mx-auto">{children}</div>
+            </div>
           </main>
         </div>
       </SidebarProvider>
-      <Toaster />
+      <Toaster position="top-center" richColors />
     </>
   );
 };

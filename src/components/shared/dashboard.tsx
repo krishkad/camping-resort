@@ -16,7 +16,7 @@ const Dashboard = () => {
     <div className="w-full">
       {/* CARDS  */}
       <div className="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
-        <div className="w-full h-32 rounded-md border border-gray-200 hover:shadow-md transition-all duration-300 p-4 flex flex-col justify-between">
+        <div className="w-full h-32 rounded-md border border-gray-200 hover:shadow-md transition-all duration-300 p-4 flex flex-col justify-between bg-white">
           <div className="flex justify-between">
             <div className="">
               <h1 className="text-lg font-bold">Revenue</h1>
@@ -31,7 +31,7 @@ const Dashboard = () => {
             </h1>
           </div>
         </div>
-        <div className="w-full h-32 rounded-md border border-gray-200 hover:shadow-md transition-all duration-300 p-4 flex flex-col justify-between">
+        <div className="w-full h-32 rounded-md border border-gray-200 hover:shadow-md transition-all duration-300 p-4 flex flex-col justify-between bg-white">
           <div className="flex justify-between">
             <div className="">
               <h1 className="text-lg font-bold">Total Bookings</h1>
@@ -43,7 +43,7 @@ const Dashboard = () => {
             <h1 className="text-2xl font-bold">112</h1>
           </div>
         </div>
-        <div className="w-full h-32 rounded-md border border-gray-200 hover:shadow-md transition-all duration-300 p-4 flex flex-col justify-between">
+        <div className="w-full h-32 rounded-md border border-gray-200 hover:shadow-md transition-all duration-300 p-4 flex flex-col justify-between bg-white">
           <div className="flex justify-between">
             <div className="">
               <h1 className="text-lg font-bold">Occupancy</h1>
@@ -55,7 +55,7 @@ const Dashboard = () => {
             <h1 className="text-2xl font-bold">3</h1>
           </div>
         </div>
-        <div className="w-full h-32 rounded-md border border-gray-200 hover:shadow-md transition-all duration-300 p-4 flex flex-col justify-between">
+        <div className="w-full h-32 rounded-md border border-gray-200 hover:shadow-md transition-all duration-300 p-4 flex flex-col justify-between bg-white">
           <div className="flex justify-between">
             <div className="">
               <h1 className="text-lg font-bold">Guest Satisfaction</h1>
@@ -70,9 +70,9 @@ const Dashboard = () => {
       </div>
 
       <div className="w-full grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-5 mt-5">
-        <div className="w-full border border-gray-200 hover:shadow-md transition-all duration-200 rounded-md p-4">
+        <div className="w-full border border-gray-200 hover:shadow-md transition-all duration-200 rounded-md p-4 bg-white">
           <div className="w-full flex items-center justify-between">
-            <h3 className="text-base font-bold">Recent Bookings</h3>
+            <h3 className="text-base font-bold">Upcoming Check-ins & Check-outs</h3>
             <Button
               variant={"outline"}
               size={"icon"}
@@ -87,8 +87,8 @@ const Dashboard = () => {
             <RecentBooking />
           </div>
         </div>
-        <div className="w-full border border-gray-200 hover:shadow-md transition-all duration-200 rounded-md p-4">
-          <h3 className="text-base font-bold">Booking Dynamics</h3>
+        <div className="w-full border border-gray-200 hover:shadow-md transition-all duration-200 rounded-md p-4 bg-white">
+          <h3 className="text-base font-bold">Daily Revenue (This Week)</h3>
 
           <div className="w-full mt-4">
             <BookingDynamics />

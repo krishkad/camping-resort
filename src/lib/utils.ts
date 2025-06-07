@@ -1,4 +1,10 @@
-import { BookingStatus, CheckInStatus, PaymentStatus } from "@/constants/index.c";
+import {
+  BookingStatus,
+  CheckInStatus,
+  PaymentStatus,
+  PaymentStatusD,
+} from "@/constants/index.c";
+import { BookingD, UserD } from "@/types";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -6,36 +12,37 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const getCheckInStatus = (status: CheckInStatus, property: "text" | "bg") => {
+export const getCheckInStatus = (
+  status: CheckInStatus,
+  property: "text" | "bg"
+) => {
   switch (status) {
     case "Checked-in":
-        switch (property) {
-          case "text":
-            return "text-[#065F46]"
-        
-          case "bg":
-            return "bg-[#D1FAE5]"
-        }  
+      switch (property) {
+        case "text":
+          return "text-[#065F46]";
+
+        case "bg":
+          return "bg-[#D1FAE5]";
+      }
     case "Checked-out":
-        switch (property) {
-          case "text":
-            return "text-[#1E3A8A]"
-        
-          case "bg":
-            return "bg-[#E0F2FE]"
-        }  
+      switch (property) {
+        case "text":
+          return "text-[#1E3A8A]";
+
+        case "bg":
+          return "bg-[#E0F2FE]";
+      }
     case "Not Checked-in":
-        switch (property) {
-          case "text":
-            return "text-[#92400E]"
-        
-          case "bg":
-            return "bg-[#FEF9C3]"
-        }  
-   
+      switch (property) {
+        case "text":
+          return "text-[#92400E]";
+
+        case "bg":
+          return "bg-[#FEF9C3]";
+      }
   }
 };
-
 
 export const getBookingStatus = (
   status: BookingStatus,
@@ -66,9 +73,8 @@ export const getBookingStatus = (
   }
 };
 
-
 export const getPaymentStatus = (
-  status: PaymentStatus,
+  status: PaymentStatusD,
   property: "text" | "bg"
 ) => {
   switch (status) {
@@ -86,7 +92,7 @@ export const getPaymentStatus = (
         case "bg":
           return "bg-[#FEF3C7]";
       }
-    case "Unpaid":
+    case "Pending":
       switch (property) {
         case "text":
           return "text-[#B91C1C]";
@@ -100,5 +106,148 @@ export const getPaymentStatus = (
         case "bg":
           return "bg-orange-200";
       }
+  }
+};
+
+export const updateBooking = async (
+  booking: BookingD
+): Promise<{
+  booking: BookingD | null;
+  error: string | null;
+}> => {
+  const token = localStorage.getItem("authtoken");
+
+  try {
+    const response = await fetch(
+      `http://localhost:5000/api/booking/update/${booking.id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          authtoken: token || "",
+        },
+        body: JSON.stringify(booking)
+      }
+    );
+
+    const res = await response.json();
+
+    if (!res.success) {
+      return {
+        booking: null,
+        error: res.message || "Failed to update booking.",
+      };
+    }
+    console.log({ res });
+
+    return { booking: res.data, error: null };
+  } catch (err: any) {
+    return { booking: null, error: err.message || "Something went wrong." };
+  }
+};
+export const deleteBooking = async (
+  id: string
+): Promise<{
+  booking: BookingD | null;
+  error: string | null;
+}> => {
+  const token = localStorage.getItem("authtoken");
+
+  try {
+    const response = await fetch(
+      `http://localhost:5000/api/booking/delete/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          authtoken: token || "",
+        },
+      }
+    );
+
+    const res = await response.json();
+
+    if (!res.success) {
+      return {
+        booking: null,
+        error: res.message || "Failed to delete booking.",
+      };
+    }
+    console.log({ res });
+
+    return { booking: res.booking, error: null };
+  } catch (err: any) {
+    return { booking: null, error: err.message || "Something went wrong." };
+  }
+};
+
+
+export const updateTeam = async (
+  user: UserD
+): Promise<{
+  user: UserD | null;
+  error: string | null;
+}> => {
+  const token = localStorage.getItem("authtoken");
+
+  try {
+    const response = await fetch(
+      `http://localhost:5000/api/user/update/${user.id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          authtoken: token || "",
+        },
+        body: JSON.stringify(user)
+      }
+    );
+
+    const res = await response.json();
+
+    if (!res.success) {
+      return {
+        user: null,
+        error: res.message || "Failed to update user.",
+      };
+    }
+
+    return { user: res.data, error: null };
+  } catch (err: any) {
+    return { user: null, error: err.message || "Something went wrong." };
+  }
+};
+export const deleteTeam = async (
+  id: string
+): Promise<{
+  user: UserD | null;
+  error: string | null;
+}> => {
+  const token = localStorage.getItem("authtoken");
+
+  try {
+    const response = await fetch(
+      `http://localhost:5000/api/user/delete/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          authtoken: token || "",
+        },
+      }
+    );
+
+    const res = await response.json();
+
+    if (!res.success) {
+      return {
+        user: null,
+        error: res.message || "Failed to delete user.",
+      };
+    }
+
+    return { user: res.data, error: null };
+  } catch (err: any) {
+    return { user: null, error: err.message || "Something went wrong." };
   }
 };

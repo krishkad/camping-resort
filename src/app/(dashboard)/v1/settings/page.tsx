@@ -11,11 +11,15 @@ import {
 import { Button } from "@/components/ui/button";
 import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import CampsiteForm from "@/components/shared/campsites-form";
 
 const SettingsPage = () => {
   return (
-    <div className="w-full">
-      <div className="max-w-4xl mx-auto">
+    <div className="w-full space-y-5">
+      <CampsiteForm />
+
+      {/* HOLIDAY SECTION  */}
+      <div className="max-w-4xl mx-auto bg-white">
         <div className="w-full p-4 rounded-md border border-gray-200 hover:shadow-md transition-all duration-300">
           <div className="w-full">
             <h2 className="text-base font-medium">Holiday Declaration</h2>
@@ -105,10 +109,7 @@ const SettingsPage = () => {
             </div>
 
             <div className="w-full mt-4">
-              <Button className="w-full">
-                Save
-              </Button>
-
+              <Button className="w-full">Save</Button>
             </div>
           </div>
         </div>

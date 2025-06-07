@@ -3,10 +3,12 @@ import React, { useState, useEffect } from "react";
 import { Menu, X, Tent, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,6 +30,7 @@ const Header = () => {
   };
 
   return (
+
     <header
       className={`fixed w-full z-50 transition-all duration-500 ${
         isScrolled && isMobileMenuOpen
@@ -81,7 +84,7 @@ const Header = () => {
               {item.title}
             </a>
           ))}
-          <Button className="btn-primary text-white ml-3">
+          <Button className="btn-primary text-white ml-3" onClick={() => router.push("#booking")}>
             <span>Book Now</span>
             <ChevronDown className="h-4 w-4 ml-1" />
           </Button>
@@ -134,7 +137,7 @@ const Header = () => {
                 {item.title}
               </a>
             ))}
-            <Button className="bg-[#377c48] hover:bg-[#2d633b] text-white font-medium py-3 px-6 rounded-lg transition-all">
+            <Button className="bg-[#377c48] hover:bg-[#2d633b] text-white font-medium py-3 px-6 rounded-lg transition-all" onClick={() => router.push("#booking")}>
               Book Now
             </Button>
           </nav>

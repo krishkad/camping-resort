@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { TrendingUp } from "lucide-react"
-import { Bar, BarChart, CartesianGrid, LabelList, XAxis } from "recharts"
+import { TrendingUp } from "lucide-react";
+import { Bar, BarChart, CartesianGrid, LabelList, XAxis } from "recharts";
 
 import {
   Card,
@@ -10,28 +10,29 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart"
+} from "@/components/ui/chart";
 const chartData = [
-  { month: "January", desktop: 186 },
-  { month: "February", desktop: 305 },
-  { month: "March", desktop: 237 },
-  { month: "April", desktop: 73 },
-  { month: "May", desktop: 209 },
-  { month: "June", desktop: 214 },
-]
+  { day: "Monday", income: 8.11 },
+  { day: "Tuesday", income: 6.48 },
+  { day: "Wednesday", income: 7.83 },
+  { day: "Thursday", income: 6.21 },
+  { day: "Friday", income: 8.41 },
+  { day: "Saturday", income: 7.04 },
+  { day: "Sunday", income: 6.94 },
+];
 
 const chartConfig = {
-  desktop: {
-    label: "Desktop",
+  income: {
+    label: "Income",
     color: "hsl(var(--chart-1))",
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 export function BookingDynamics() {
   return (
@@ -51,7 +52,7 @@ export function BookingDynamics() {
           >
             <CartesianGrid vertical={false} />
             <XAxis
-              dataKey="month"
+              dataKey="day"
               tickLine={false}
               tickMargin={10}
               axisLine={false}
@@ -61,7 +62,7 @@ export function BookingDynamics() {
               cursor={false}
               content={<ChartTooltipContent hideLabel />}
             />
-            <Bar dataKey="desktop" fill="var(--color-desktop)" radius={8}>
+            <Bar dataKey="income" fill="var(--color-desktop)" radius={8}>
               <LabelList
                 position="top"
                 offset={12}
@@ -81,5 +82,5 @@ export function BookingDynamics() {
         </div>
       </CardFooter>
     </Card>
-  )
+  );
 }
