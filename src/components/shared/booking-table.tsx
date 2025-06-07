@@ -2,7 +2,7 @@
 import {
   BookingStatus,
   CheckInStatus,
-  PaymentStatusD
+  PaymentStatusD,
 } from "@/constants/index.c";
 import { useBookings } from "@/hooks/use-bookings";
 import {
@@ -48,7 +48,12 @@ const BookingTable = () => {
     return <>ok</>;
   }
 
-  const [data, setData] = useState<BookingD[] | null>(bookingData);
+  const [data, setData] = useState<BookingD[] | null>(null);
+
+  useEffect(() => {
+    if (!bookingData) return;
+    setData(bookingData);
+  }, [bookingData]);
 
   const columns: ColumnDef<BookingD>[] = [
     {

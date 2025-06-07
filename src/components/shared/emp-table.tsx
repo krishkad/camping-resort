@@ -15,7 +15,7 @@ import UserDeleteModal from "./user-delete-modal";
 import UserEditModel from "./user-edit-model";
 
 const EmpTable = () => {
-  const { userData, loading, error } = useUser();
+  const { userData } = useUser();
   const [data, setData] = useState<UserD[] | null>(userData);
   const [open, setOpen] = useState<boolean>(false);
   const [openDelete, setOpenDelete] = useState(false);
