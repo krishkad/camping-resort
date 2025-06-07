@@ -28,7 +28,7 @@ import BookingModel from "./booking-model";
 import DataTable from "./data-table";
 
 const BookingTable = () => {
-  const { bookingData, loading, error } = useBookings();
+  const { bookingData } = useBookings();
   const [open, setOpen] = useState<boolean>(false);
   const [deleteOpen, setDeleteOpen] = useState<boolean>(false);
   const [deleteBooking, setDeleteBooking] = useState<BookingD | undefined>(
@@ -38,15 +38,6 @@ const BookingTable = () => {
     undefined
   );
 
-  if (
-    !bookingData &&
-    bookingData !== null &&
-    !loading &&
-    bookingData === undefined &&
-    error === "not authorized"
-  ) {
-    return <>ok</>;
-  }
 
   const [data, setData] = useState<BookingD[] | null>(null);
 
@@ -361,9 +352,7 @@ const BookingTable = () => {
     },
   ];
 
-  useEffect(() => {
-    setData(bookingData);
-  }, [bookingData]);
+
 
   const delBooking = async (id: string) => {
     if (!id) {
