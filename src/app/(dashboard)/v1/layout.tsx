@@ -8,8 +8,14 @@ import { Toaster } from "@/components/ui/sonner";
 
 import DashboardName from "@/components/shared/dashboard-name";
 import UserPopover from "@/components/shared/user-popover";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
-const DashboardLayout = ({ children }: { children: ReactNode }) => {
+const DashboardLayout = async ({ children }: { children: ReactNode }) => {
+  const cookiesStore = await cookies();
+  const token = cookiesStore.get("authtoken");
+
+  if (!token) return redirect("/auth/sign-in");
   return (
     <>
       <SidebarProvider>

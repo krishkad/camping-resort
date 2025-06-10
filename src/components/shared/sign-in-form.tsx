@@ -44,7 +44,7 @@ export function LoginForm({
       }
 
       localStorage.setItem("user", JSON.stringify(res.data));
-      console.log({ res, token: res.authtoken });
+      console.log({ res });
       setTimeout(() => {
         router.push("/v1/bookings");
       }, 500); // ✅ Wait a bit to ensure cookie is stored
