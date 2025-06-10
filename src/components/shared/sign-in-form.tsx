@@ -47,6 +47,7 @@ export function LoginForm({
       localStorage.setItem("user", JSON.stringify(res.data));
       router.push("/v1/bookings");
       console.log({ res, token: res.authtoken });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.log("error while login: ", error);
       toast.warning("Failed to Login");

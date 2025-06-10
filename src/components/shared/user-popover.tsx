@@ -59,6 +59,7 @@ const UserPopover = () => {
 
       toast.success("Logout successful");
       router.push("/auth/sign-in");
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.log("error while loging out", error);
       toast.warning("Failed to log out");
