@@ -114,7 +114,6 @@ export const updateBooking = async (
   booking: BookingD | null;
   error: string | null;
 }> => {
-  const token = localStorage.getItem("authtoken");
 
   try {
     const response = await fetch(
@@ -151,7 +150,7 @@ export const deleteBooking = async (
   booking: BookingD | null;
   error: string | null;
 }> => {
-  const token = localStorage.getItem("authtoken");
+  
 
   try {
     const response = await fetch(
@@ -190,7 +189,7 @@ export const updateTeam = async (
   user: UserD | null;
   error: string | null;
 }> => {
-  const token = localStorage.getItem("authtoken");
+  
 
   try {
     const response = await fetch(
@@ -226,7 +225,7 @@ export const deleteTeam = async (
   user: UserD | null;
   error: string | null;
 }> => {
-  const token = localStorage.getItem("authtoken");
+  
 
   try {
     const response = await fetch(

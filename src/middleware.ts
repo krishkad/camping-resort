@@ -45,6 +45,8 @@ export const config = {
   matcher: ["/v1/:path*"],
 };
 
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function decodeJWTPayload(token: string): any {
   const base64Url = token.split(".")[1]; // Get payload part
   const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
