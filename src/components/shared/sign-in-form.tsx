@@ -19,8 +19,7 @@ export function LoginForm({
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onLoginSubmit = async (e: any) => {
+  const onLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log({ data });
     try {
@@ -44,10 +43,10 @@ export function LoginForm({
         return;
       }
 
-      toast.success("Log In successful");
       localStorage.setItem("user", JSON.stringify(res.data));
-      router.push("/v1/bookings");
       console.log({ res, token: res.authtoken });
+      router.push("/v1/bookings");
+      toast.success("Log In successful");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.log("error while login: ", error);
