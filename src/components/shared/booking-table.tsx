@@ -38,7 +38,6 @@ const BookingTable = () => {
     undefined
   );
 
-
   const [data, setData] = useState<BookingD[] | null>(null);
 
   useEffect(() => {
@@ -352,30 +351,25 @@ const BookingTable = () => {
     },
   ];
 
-
-
   const delBooking = async (id: string) => {
     if (!id) {
       console.log("no id");
     }
-    console.log({ id });
     const { booking, error } = await delBookingFunc(id);
-    console.log({ booking });
+
     if (!error && booking) {
       const filteredData = data?.filter((item) => item.id !== booking!.id);
-      console.log({ filteredData });
       setData(filteredData!);
       toast.success("Deletion successful");
-      // toast.success("Deletion successul");
     } else {
-      toast.warning("Deletion unsuccessful");
+      toast.warning(error || "Deletion unsuccessful");
     }
   };
+
   const upBooking = async (bookingProps: BookingD) => {
     if (!bookingProps) {
       console.log("no id");
     }
-    console.log({ bookingProps });
     const { booking, error } = await updateBookingFunc(bookingProps);
 
     if (!error && booking) {
@@ -383,7 +377,6 @@ const BookingTable = () => {
       filteredData?.push(booking);
       setData(filteredData!);
       toast.success("Update successfully");
-      // toast.success("Deletion successul");
     } else {
       console.log({ error, booking });
       toast.warning("Update unsuccessful");

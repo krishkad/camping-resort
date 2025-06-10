@@ -94,6 +94,12 @@ const Footer = () => {
                   Contact Us
                 </a>
               </li>
+              <li>
+                <a href="/auth/sign-in" className="text-stone-200 hover:text-white transition-colors flex items-center">
+                  <span className="w-1.5 h-1.5 bg-[#dea253] rounded-full mr-2"></span>
+                  Log In
+                </a>
+              </li>
             </ul>
           </div>
           

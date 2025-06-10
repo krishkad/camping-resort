@@ -146,9 +146,9 @@ const EmpTable = () => {
       const filteredData = data?.filter((item) => item.id !== user!.id);
       filteredData?.push(user);
       setData(filteredData!);
-      toast.success("team member deleted successfully");
+      toast.success("team member updated successfully");
     } else {
-      toast.warning(error || "failed to delete team member");
+      toast.warning(error || "failed to update team member");
     }
   };
 

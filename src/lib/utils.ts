@@ -122,10 +122,10 @@ export const updateBooking = async (
       {
         method: "PUT",
         headers: {
-          "Content-Type": "application/json",
-          authtoken: token || "",
+          "Content-Type": "application/json"
         },
-        body: JSON.stringify(booking)
+        body: JSON.stringify(booking),
+        credentials: "include"
       }
     );
 
@@ -160,8 +160,8 @@ export const deleteBooking = async (
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          authtoken: token || "",
         },
+         credentials: "include"
       }
     );
 
@@ -178,7 +178,8 @@ export const deleteBooking = async (
     return { booking: res.booking, error: null };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
-    return { booking: null, error: err.message || "Something went wrong." };
+    console.log("error while deleting booking: ", err.message)
+    return { booking: null, error: "Something went wrong." };
   }
 };
 
@@ -198,9 +199,9 @@ export const updateTeam = async (
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          authtoken: token || "",
         },
-        body: JSON.stringify(user)
+        body: JSON.stringify(user),
+         credentials: "include"
       }
     );
 
@@ -234,8 +235,9 @@ export const deleteTeam = async (
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          authtoken: token || "",
+        
         },
+         credentials: "include"
       }
     );
 

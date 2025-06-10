@@ -9,15 +9,14 @@ export function useUser() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = localStorage.getItem("authtoken");
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/api/user/all`,
           {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              authtoken: `${token}`,
             },
+            credentials: "include"
           }
         );
 

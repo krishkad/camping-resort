@@ -9,20 +9,18 @@ export const useBookings = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = localStorage.getItem("authtoken") || ""; // move inside useEffect
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/api/booking/all`,
           {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              authtoken: token ?? "", // handle null safely
             },
+            credentials: "include"
           }
         );
 
         const data = await res.json();
-        console.log(data);
 
         if (!data.success) {
           setError(data.message);
