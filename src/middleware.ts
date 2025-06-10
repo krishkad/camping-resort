@@ -8,6 +8,7 @@ const publicRoutes = ["/", "/auth/sign-in", "/auth/sign-up"];
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
   const token = req.cookies.get("authtoken")?.value;
+  console.log(token)
 
   // Allow public routes without authentication
   if (publicRoutes.includes(pathname)) {
