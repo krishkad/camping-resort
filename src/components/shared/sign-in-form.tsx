@@ -45,7 +45,9 @@ export function LoginForm({
 
       localStorage.setItem("user", JSON.stringify(res.data));
       console.log({ res, token: res.authtoken });
-      router.push("/v1/bookings");
+      setTimeout(() => {
+        router.push("/v1/bookings");
+      }, 500); // ✅ Wait a bit to ensure cookie is stored
       toast.success("Log In successful");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
