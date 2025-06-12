@@ -66,7 +66,8 @@ export interface BookingD {
   checkInStatus?: CheckInStatus;
   bookingStatus?: BookingStatus;
   paymentStatus?: PaymentStatus;
-  amount: number;
+  advanceAmount?: number;
+  amount?: number;
   roomType: RoomType;
   roomNumber?: string;
   numberOfAdults: number;

@@ -128,7 +128,12 @@ const BookingModel = ({
                 <Input
                   id="roomNumber"
                   name="roomNumber"
-                  value={bookingData.roomNumber!}
+                  value={
+                    bookingData.roomNumber !== undefined &&
+                    bookingData.roomNumber !== null
+                      ? bookingData.roomNumber
+                      : ""
+                  }
                   onChange={onChangeHandler}
                   className="col-span-3"
                 />
@@ -236,9 +241,22 @@ const BookingModel = ({
                   </Label>
                   <Input
                     id="numberOfAdults"
+                    type="number"
                     name="numberOfAdults"
-                    value={bookingData.numberOfAdults!}
-                    onChange={onChangeHandler}
+                    value={
+                      bookingData.numberOfAdults === undefined
+                        ? 0
+                        : bookingData.numberOfAdults
+                    }
+                    onChange={(value) =>
+                      setBookingData({
+                        ...bookingData,
+                        numberOfAdults:
+                          value.target.value !== undefined
+                            ? parseInt(value.target.value)
+                            : 0,
+                      })
+                    }
                     className="col-span-3"
                   />
                 </div>
@@ -248,9 +266,22 @@ const BookingModel = ({
                   </Label>
                   <Input
                     id="numberOfKids"
+                    type="number"
                     name="numberOfKids"
-                    value={bookingData.numberOfKids!}
-                    onChange={onChangeHandler}
+                    value={
+                      bookingData.numberOfKids === undefined
+                        ? 0
+                        : bookingData.numberOfKids
+                    }
+                    onChange={(value) =>
+                      setBookingData({
+                        ...bookingData,
+                        numberOfKids:
+                          value.target.value !== undefined
+                            ? parseInt(value.target.value)
+                            : 0,
+                      })
+                    }
                     className="col-span-3"
                   />
                 </div>
@@ -399,19 +430,56 @@ const BookingModel = ({
                   </SelectContent>
                 </Select>
               </div>
+              <div className="w-full space-y-1 mt-4">
+                <Label htmlFor="advanceAmount" className="text-right">
+                  Advance Amount
+                </Label>
+                <Input
+                  id="advanceAmount"
+                  name="advanceAmount"
+                  value={
+                    bookingData.advanceAmount !== undefined &&
+                    bookingData.advanceAmount > 0 &&
+                    bookingData.advanceAmount !== null &&
+                    typeof bookingData.advanceAmount !== null
+                      ? bookingData.advanceAmount
+                      : ""
+                  }
+                  onChange={(e) =>
+                    setBookingData({
+                      ...bookingData,
+                      advanceAmount: parseInt(e.target.value),
+                    })
+                  }
+                  className="col-span-3"
+                />
+              </div>
+              <div className="w-full space-y-1 mt-4">
+                <Label htmlFor="amount" className="text-right">
+                  Amount
+                </Label>
+                <Input
+                  id="amount"
+                  name="amount"
+                  value={
+                    bookingData.amount !== undefined &&
+                    bookingData.amount > 0 &&
+                    bookingData.amount !== null &&
+                    typeof bookingData.amount !== null
+                      ? bookingData.amount
+                      : ""
+                  }
+                  onChange={(e) =>
+                    setBookingData({
+                      ...bookingData,
+                      amount: parseInt(e.target.value),
+                    })
+                  }
+                  className="col-span-3"
+                />
+              </div>
             </div>
-            <div className="w-full space-y-1 mt-4">
-              <Label htmlFor="amount" className="text-right">
-                Amount
-              </Label>
-              <Input
-                id="amount"
-                name="amount"
-                value={bookingData.amount!}
-                onChange={onChangeHandler}
-                className="col-span-3"
-              />
-            </div>
+
             <div className="w-full space-y-1 mt-4">
               <Label htmlFor="specialRequests" className="text-right">
                 Special Request
@@ -419,7 +487,12 @@ const BookingModel = ({
               <Textarea
                 name="specialRequests"
                 id="specialRequests"
-                value={bookingData.specialRequests!}
+                value={
+                  bookingData.specialRequests !== undefined &&
+                  bookingData.specialRequests !== null
+                    ? bookingData.specialRequests
+                    : ""
+                }
                 onChange={onChangeHandler}
                 className="col-span-3"
               />

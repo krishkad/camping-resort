@@ -1,12 +1,11 @@
-import Hero from "@/components/shared/Hero";
+import Booking from "@/components/shared/Booking";
 import CampListing from "@/components/shared/CampListing";
-import Pricing from "@/components/shared/Pricing";
+import Contact from "@/components/shared/Contact";
 import DailySchedule from "@/components/shared/DailySchedule";
 import Facilities from "@/components/shared/Facilities";
-import Contact from "@/components/shared/Contact";
-import Booking from "@/components/shared/Booking";
 import Footer from "@/components/shared/Footer";
 import GallerySection from "@/components/shared/GallerySection";
+import Hero from "@/components/shared/Hero";
 
 export default function Home() {
   return (
@@ -15,7 +14,7 @@ export default function Home() {
       <CampListing />
       <DailySchedule />
       <GallerySection />
-      <Pricing />
+      {/* <Pricing /> */}
       <Facilities />
       <Booking />
       <Contact />

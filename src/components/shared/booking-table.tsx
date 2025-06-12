@@ -26,6 +26,7 @@ import { Button } from "../ui/button";
 import BookingDeleteModel from "./booking-delete-model";
 import BookingModel from "./booking-model";
 import DataTable from "./data-table";
+import { format } from "date-fns";
 
 const BookingTable = () => {
   const { bookingData } = useBookings();
@@ -96,7 +97,7 @@ const BookingTable = () => {
 
         return (
           <div className="text-right font-medium ml-4">
-            {formatted as string}
+            {format(date, "dd-MM-yyyy")}
           </div>
         );
       },
@@ -116,7 +117,8 @@ const BookingTable = () => {
 
         return (
           <div className="text-right font-medium ml-4">
-            {formatted as string}
+            {/* {formatted as string} */}
+            {format(date, "dd-MM-yyyy")}
           </div>
         );
       },
@@ -280,6 +282,15 @@ const BookingTable = () => {
             {specialRequest as string}
           </div>
         );
+      },
+    },
+    {
+      accessorKey: "advanceAmount",
+      header: () => <div className="text-right">Advance Amount</div>,
+      cell: ({ row }) => {
+        const amount = row.getValue("advanceAmount");
+
+        return <div className="text-right font-medium">{amount as string}</div>;
       },
     },
     {
