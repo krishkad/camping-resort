@@ -89,11 +89,11 @@ const BookingTable = () => {
         const checkInDate = row.getValue("checkInDate");
         const date = new Date(checkInDate as string);
 
-        const day = String(date.getUTCDate()).padStart(2, "0");
-        const month = String(date.getUTCMonth() + 1).padStart(2, "0");
-        const year = date.getUTCFullYear();
+        // const day = String(date.getUTCDate()).padStart(2, "0");
+        // const month = String(date.getUTCMonth() + 1).padStart(2, "0");
+        // const year = date.getUTCFullYear();
 
-        const formatted = `${day}-${month}-${year}`;
+        // const formatted = `${day}-${month}-${year}`;
 
         return (
           <div className="text-right font-medium ml-4">
@@ -109,11 +109,11 @@ const BookingTable = () => {
         const checkOutDate = row.getValue("checkOutDate");
         const date = new Date(checkOutDate as string);
 
-        const day = String(date.getUTCDate()).padStart(2, "0");
-        const month = String(date.getUTCMonth() + 1).padStart(2, "0");
-        const year = date.getUTCFullYear();
+        // const day = String(date.getUTCDate()).padStart(2, "0");
+        // const month = String(date.getUTCMonth() + 1).padStart(2, "0");
+        // const year = date.getUTCFullYear();
 
-        const formatted = `${day}-${month}-${year}`;
+        // const formatted = `${day}-${month}-${year}`;
 
         return (
           <div className="text-right font-medium ml-4">
