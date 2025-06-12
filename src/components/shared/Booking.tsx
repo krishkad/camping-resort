@@ -26,7 +26,7 @@ import {
   Info,
   SquareDotIcon,
   User,
-  Users
+  Users,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { ChangeEvent, useState } from "react";
@@ -52,7 +52,6 @@ const Booking = () => {
     e.preventDefault();
     setData({ ...data, [e.target.name]: e.target.value });
   };
-
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -87,7 +86,8 @@ const Booking = () => {
       }
 
       localStorage.setItem("booking", JSON.stringify(res.data));
-      router.push('/#booking')
+      router.push("/#booking");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.log("failed to request a booking: ", error);
     }
