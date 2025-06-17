@@ -71,7 +71,7 @@ const CampListing = () => {
                 </div>
                 <div className="absolute top-4 right-4 z-10">
                   <span className="flex items-center bg-stone-500/90 text-white backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium">
-                    ${camp.price} <span className="text-xs ml-1">/ night</span>
+                    ₹{camp.price} <span className="text-xs ml-1">/ night</span>
                   </span>
                 </div>
                 <img
